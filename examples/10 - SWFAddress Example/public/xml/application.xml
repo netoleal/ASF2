@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="MainApp">
+	
+	<params>
+		
+		<!-- Project Info -->
+		<title>ProjectName</title>
+		<startDate></startDate>
+		<developer></developer>
+		<agency></agency>
+		
+		<!-- Params -->
+		<base>./</base>
+		<locale>pt-br</locale>
+		<debug>true</debug>
+		<showContextMenu>{debug}</showContextMenu>
+		<hideContextMenuBuiltIn>true</hideContextMenuBuiltIn>
+		<lockStageDuringTransitions>true</lockStageDuringTransitions>		
+		<swfAdress>true</swfAdress>
+				
+		<swf>
+			<if condition="{debug}">
+				<then>swf-debug/</then>
+				<else>swf/</else>
+			</if>
+		</swf>
+	</params>
+	
+	<localization>
+	</localization>
+	
+	<styles>
+		<!--Place your main stylesheets here-->
+	</styles>
+	
+	<files>
+		<!--Place your main dependent files here-->
+		<file id="mainControllerCache" type="swf">MainControllerCache.swf</file>
+	</files>
+	
+	<sounds>
+		<!--Place your main sounds here-->
+	</sounds>
+	
+	<mainController>com.app.MainController</mainController>
+	<metrics></metrics>
+	
+	<layers>
+		<sections margins="0,0">
+			<container margins="0,0"/>
+		</sections>
+		<loading align="centermiddle" width="0" height="0" />
+	</layers>
+	
+	<sections layer="sections">
+		
+		<section id="indexSection" viewClass="projetoName.view.IndexView" loadAtStart="true" closeOnNavigate="false">
+			<files>
+				<file id="source" type="swf">{base}{swf}index.swf</file>
+			</files>				
+		</section>
+		
+		<section id="navSection" viewClass="projetoName.view.NavView" loadAtStart="true" closeOnNavigate="false"> 
+			<files>
+				<file id="source" type="swf">{base}{swf}nav.swf</file>
+			</files>
+		</section>
+		
+		<section id="homeSection" viewClass="projetoName.view.HomeView" loadAtStart="true"> 
+			<files>
+				<file id="source" type="swf">{base}{swf}home.swf</file>
+			</files>
+		</section>
+		
+		<section id="aboutSection" viewClass="projetoName.view.AboutView"> 
+			<files>
+				<file id="source" type="swf">{base}{swf}about.swf</file>
+			</files>
+		</section>
+		
+	</sections>
+	
+</app>

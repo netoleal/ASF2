@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="main">
+	
+	<layers>
+		<sections margins="10,40" />
+	</layers>
+	
+	<sections layer="sections">
+		<section id="home" viewClass="sections.HomeSection">
+			
+		</section>
+		<section id="images" viewClass="sections.ImagesSection">
+			<layers>
+				<image margins="0,60" />
+			</layers>
+			
+			<files>
+				<file id="sample">files/sample.jpg</file>
+			</files>
+		</section>
+	</sections>
+	
+</app>

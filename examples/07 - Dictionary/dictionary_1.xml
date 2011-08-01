@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="main">
+	
+	<params>
+		<!--locale>pt-br</locale-->
+		<locale>en-us</locale>
+		<localedir>locales/{locale}/</localedir>
+	</params>
+	
+	<localization>
+		<locale>{locale}</locale>
+		<file>{localedir}dict1.xml</file>
+	</localization>
+	
+</app>

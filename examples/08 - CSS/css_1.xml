@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="main">
+	
+	<params>
+		<squareCount>30</squareCount>
+	</params>
+	
+	<styles>
+		<style src="files/css_1.css" />
+	</styles>
+	
+</app>

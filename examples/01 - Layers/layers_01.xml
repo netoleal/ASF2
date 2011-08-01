@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="main">
+	
+	<layers>
+		<bg width="500" height="400" align="centertop"/>
+		<main width="300" height="300" align="centermiddle" margins="50,50">
+			<sub width="40" height="40" align="centermiddle" box="0,0,300,300"/>
+		</main>
+	</layers>
+	
+</app>

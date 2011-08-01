@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="main">
+	
+	<sounds>
+		<sound id="over" type="url" allowMultipleChannels="true">fx/over.mp3</sound>
+		<sound id="out" type="url" allowMultipleChannels="true">fx/out.mp3</sound>
+		<sound id="click" type="url" allowMultipleChannels="true">fx/click.mp3</sound>
+	</sounds>
+	
+</app>
