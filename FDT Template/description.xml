@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:projectTemplate xmlns:tns="http://fdt.powerflasher.com/ProjectTemplate"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://fdt.powerflasher.com/ProjectTemplate ../../projectTemplate.xsd">
+	<name>ASF Framework</name>
+	<version>1.0</version>
+	<projectType>AS 3</projectType>
+	<variables>
+		<primaryGroup label="Options">
+			
+			<group label="Package Name">
+				<variable name="domain" label="Domain" default="domain" type="string" />
+				<variable name="clientFolderName" label="Client Name" default="clientname" type="string" />
+				<variable name="projectFolderName" label="Project Name"	default="projectname" type="string" />
+			</group>
+			
+			<group label="Movie Properties">
+				<variable name="color" label="BG Color" default="#FFFFFF" type="string" />
+				<variable name="fps" label="Frame Rate" default="31" type="string" />
+				<variable name="width" label="Width" default="950" type="string" />
+				<variable name="height" label="Height" default="550" type="string" />
+			</group>
+					
+		</primaryGroup>
+	</variables>
+	<expressions>
+		<expression name="sourceFolder" value="source" />
+		<expression name="outputFolder" value="public" />
+		<expression name="libs" value="source/asfswc" />
+		<expression name="swcs" value="source/swc" />
+		
+		<expression name="namespace" value="concat('',(${domain}),'.',(${clientFolderName}),'.',(${projectFolderName}),'')" />
+		<expression name="projectNameBuild" value="concat('',(${projectName}),'')" />
+		
+		<!-- FOR ANT -->
+		<expression name="documentClassPath" value="concat('',(${domain}),'/',(${clientFolderName}),'/',(${projectFolderName}),'')" />
+		<expression name="swfRelease" value="concat('',(${outputFolder}),'/swf')" />
+		<expression name="swfDebug" value="concat('',(${outputFolder}),'/swf-debug')" />
+		
+		<expression name="SWFMetaData" value="concat('[SWF(backgroundColor=&quot;',(${color}),'&quot;, frameRate=&quot;',(${fps}),'&quot;, width=&quot;',(${width}),'&quot;, height=&quot;', (${height}),'&quot;)]')" />
+		
+	</expressions>
+	<description>This template will create a project named '${projectName}' using ASF Framework, all deploy files and the necessary ANT files to build the application${newline}</description>
+	<linkedResources></linkedResources>
+	<folders>
+		<sourceFolder>source/classes/</sourceFolder>
+		<outputFolder>${outputFolder}</outputFolder>
+		<autoLibFolder>source/asfswc</autoLibFolder>
+		<autoLibFolder>source/swc</autoLibFolder>
+	</folders>
+	<contentCreation processFileExtensions="as,mxml,xml,launch,html,properties">
+		
+		<!-- Always -->
+		
+		<file src="source/as/Main.as" dest="${sourceFolder}/classes/${domain}/${clientFolderName}/${projectFolderName}/Main.as" process="true" />
+		<file src="source/as/MainControllerCache.as" dest="${sourceFolder}/classes/${domain}/${clientFolderName}/${projectFolderName}/MainControllerCache.as" process="true" />
+		
+		<folder src="source/as/template" dest="${sourceFolder}/classes/${domain}/${clientFolderName}/${projectFolderName}" recursive="true" process='true'/>
+		<folder src="source/fla" dest="${sourceFolder}/fla" recursive="true"/>
+		<folder src="build" dest="build" recursive="true" process="true"/>
+		<folder src="source/swc" dest="${sourceFolder}/swc" recursive="true"/>
+		<folder src="source/asfswc" dest="${sourceFolder}/asfswc" recursive="true"/>
+		
+		<folder src="public" dest="${outputFolder}" recursive="true"/>
+	
+	</contentCreation>
+</tns:projectTemplate>

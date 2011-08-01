@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Default AnT" default="1. Debug App" basedir="../">
+	<!-- Load project.properties file -->
+	<property file="build/build.properties" />
+
+	<!--Compile App-->
+	<target name="1. Debug App">
+		<fdt.launch.application
+			projectname="${project.name}"
+			compilerarguments="${build.settings}"
+			mainclass="${basedir}/${build.documentclass}"
+			debug="true"
+			target="${basedir}/${build.swfFolderDebug}/${build.compiledswf}"
+			autoaddswcs="true"
+			startswf="true"
+			swflauncher="Adobe Flash Player" />
+		<antcall target="Show file size" />
+		
+	</target>
+
+	<target name="1.1 Run App">
+		<fdt.launch.application
+			projectname="${project.name}"
+			compilerarguments="${build.settings}"
+			mainclass="${basedir}/${build.documentclass}"
+			debug="false"
+			target="${basedir}/${build.swfFolder}/${build.compiledswf}"
+			autoaddswcs="true"
+			startswf="true"
+			swflauncher="Adobe Flash Player" />
+	</target>
+
+	<!--Show File Size-->
+	<target name="Show file size">
+		<length property="filesize" mode="all">
+			<fileset file="${basedir}/${build.deployFolder}/${build.compiledswf}" />
+		</length>
+		<echo>${basedir}/${build.compiledswf} is ${filesize} bytes</echo>
+	</target>
+
+	<!--Clean Up-->
+	<target name="Clean Up" depends="Clean Up .DS_Store">
+		<delete file="${basedir}/${build.deployFolder}/${build.compiledswf}" />
+		<echo>${build.name}</echo>
+	</target>
+
+	<!--Clean Up .DS_Store-->
+	<target name="Clean Up .DS_Store">
+		<delete>
+			<fileset dir="${basedir}" includes="**/*.DS_Store" defaultexcludes="false" />
+		</delete>
+	</target>
+
+	<!--Prepare files to Upload-->
+	<target name="3. Prepare files to Upload" depends="Clean Up .DS_Store">
+		<mkdir dir="${basedir}/toUpload" />
+
+		<copy todir="${basedir}/toUpload">
+			<fileset dir="${basedir}/bin" defaultexcludes="false" />
+		</copy>
+
+		<antcall target="Clean Environment" />
+		<antcall target="Clean Up .DS_Store" />
+	</target>
+
+	<!-- Clean all Eclipse/Subversion environment files and directories -->
+	<target name="Clean Environment" description="Clean all Eclipse/Subversion environment files and directories">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${basedir}/toUpload" defaultexcludes="no">
+				<include name="**/.svn/**" />
+				<include name="**/.settings/**" />
+				<include name="**/.classpath" />
+				<include name="**/.project" />
+			</fileset>
+		</delete>
+	</target>
+
+	<!--Test on Local Server-->
+	<target name="2. Test on Local Server" description="Test project on Local Server">
+		<fdt.launch.application
+					projectname="${project.name}"
+					compilerarguments="${build.settings}"
+					mainclass="${basedir}/${build.documentclass}"
+					debug="false"
+					target="${basedir}/${build.swfFolderDebug}/${build.compiledswf}"
+					autoaddswcs="true"
+					startswf="false" />
+			
+		<exec executable="open">
+			<arg line="${localServer.URL}" />
+		</exec>
+	</target>
+
+</project>

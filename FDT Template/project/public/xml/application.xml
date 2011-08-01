@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="mainApp">
+	<!--
+	Find documentation about this file at: http://code.google.com/p/asf-2/wiki/XML_de_configuracao
+	-->
+	
+	<params>
+		<base>./</base>
+		<locale>pt-br</locale>
+		<debug>true</debug>
+		<showContextMenu>{debug}</showContextMenu>
+		<hideContextMenuBuiltIn>true</hideContextMenuBuiltIn>
+		<lockStageDuringTransitions>true</lockStageDuringTransitions>
+		
+		<swf>
+			<if condition="{debug}">
+				<then>swf-debug/</then>
+				<else>swf/</else>
+			</if>
+		</swf>
+	</params>
+	
+	<localization>
+	</localization>
+	
+	<styles>
+		<!--Place your main stylesheets here-->
+	</styles>
+	
+	<files>
+		<!--Place your main dependent files here-->
+		<file id="mainControllerCache" type="swf">{base}{swf}MainControllerCache.swf</file>
+	</files>
+	
+	<sounds>
+		<!--Place your main sounds here-->
+	</sounds>
+	
+	<mainController>com.app.MainController</mainController>
+	<metrics></metrics>
+	
+	<layers>
+		<sections />
+	</layers>
+	
+	<sections layer="sections">
+		<section id="sampleSection" viewClass="path.to.your.ISectionViewClass">
+			<files>
+				<!--Place your dependent files here-->
+			</files>
+			<sounds>
+				<!--Place your sounds here-->
+			</sounds>
+			<localization>
+				<!--Place your dictionary files here-->
+			</localization>
+		</section>
+	</sections>
+	
+</app>
