@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="asf.core.models.assets.AssetModel"/>
+    <classEntry path="asf.core.models.assets.AssetsModel"/>
+    <classEntry path="asf.core.models.sections.SectionType"/>
+    <classEntry path="asf.core.viewcontrollers.TransitionableViewController"/>
+    <classEntry path="asf.debug.BasePanel"/>
+    <classEntry path="asf.debug.DebugPanel"/>
+    <classEntry path="asf.debug.DebugPanelBody"/>
+    <classEntry path="asf.debug.NavigationPanel"/>
+    <classEntry path="asf.debug.PerformancePanel"/>
+    <classEntry path="asf.debug.ScrollPanel"/>
+    <classEntry path="asf.events.HistoryEvent"/>
+    <classEntry path="asf.interfaces.IAnalyticsPlugin"/>
+    <classEntry path="asf.interfaces.IDisposable"/>
+    <classEntry path="asf.interfaces.IMainController"/>
+    <classEntry path="asf.interfaces.ISectionLoading"/>
+    <classEntry path="asf.interfaces.ISequence"/>
+    <classEntry path="asf.interfaces.ITransitionable"/>
+    <classEntry path="asf.plugins.analytics.ConsoleLogAnalyticsPlugin"/>
+    <classEntry path="asf.plugins.bulkloader.BulkLoaderFactoryPlugin"/>
+    <classEntry path="asf.plugins.bulkloader.BulkLoaderPlugin"/>
+    <classEntry path="asf.utils.ButtonLabels"/>
+    <classEntry path="asf.fx.SimpleTween"/>
+    <classEntry path="asf.view.BaseLoaderApplication"/>
+    <classEntry path="asf.view.UIView"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
