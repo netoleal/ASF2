@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+	<title>Site Exemplo</title>
+	<menu>
+		<about>SOBRE O ASF</about>
+		<gallery>GALERIAS DE IMAGENS</gallery>
+		<guestbook>LIVRO DE VISITAS</guestbook>
+		<contact>CONTATO</contact>
+		<source>CÓDIGO FONTE</source>
+		<jsTest>JAVASCRIPT:</jsTest>
+	</menu>
+</dict>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>	 	
+		<title>ASF V2</title>
+		<meta name="description" content="">
+		
+		<script type="text/javascript" src="swfaddress/swfaddress.js"></script>
+		<script type="text/javascript" src="js/swfobject.js"></script>
+		<!--script type="text/javascript" src="js/all.js#xfbml=1"></script-->
+		<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+		<style type="text/css">
+	            <!--
+				body {
+					margin: 0px;
+					padding: 0px;
+					backgroundColor: #FFFFFF;
+				}
+				#flashContent {
+					margin: 0px;
+					padding: 0px;
+					height: 800;
+					width: 960;
+				}
+				#like {
+					margin: 0px;
+					padding: 0px;
+					position: absolute;
+					left: 800px;
+					top: 30px;
+				}
+	            -->
+	        </style>
+			
+	</head>
+	<body>
+		<div id="fb-root">
+		</div>
+		<div id="like">
+			<fb:like href="https://www.facebook.com/pages/ASF-Framework/130690740338842" layout="button_count" show_faces="true" width="450" font=""></fb:like>
+		</div>
+		<div id="flashContent">
+			<h1>You need at least Flash Player 10.0 to view this page.</h1>
+			<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+		</div>  
+		
+		<script type="text/javascript">
+		
+			 var flashvars = {
+					config: "xml/application.xml",
+					debug: "false"
+	          };
+			var params = {
+				wmode:"opaque",
+				name: "flashContent",
+				bgcolor: "#FFFFFF",
+				allowScriptAccess: "always",
+				allowfullscreen: "true"
+			};
+			
+			var noCache = Math.random( ) * ( new Date( ) ).getTime( );
+			
+			swfobject.embedSWF("swf-debug/ASFv2.swf?noCache=" + noCache, "flashContent", "960", "800", "10.0", null, flashvars, params, null);
+			
+		</script>
+	</body>
+</html>

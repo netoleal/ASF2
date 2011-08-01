@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dict>
+	<title>Livro de visitas</title>
+	<writeComment>Escrever Recado</writeComment>
+	<send>ENVIAR</send>
+	<back>VOLTAR</back>
+	<connect>CONECTAR COM</connect>
+	<description>ESTE RECADO TAMBEM SERÁ POSTADO NO SEU MURAL NO FACEBOOK</description>
+</dict>

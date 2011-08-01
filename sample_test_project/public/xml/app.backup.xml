@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app id="mainApp">
+	<params>
+		<standAlone>false</standAlone>
+		<base>
+			<if condition="{standAlone}">
+				<then>../</then>
+				<else>./</else>
+			</if>
+		</base>
+		<param1>value for param1 {base}</param1>
+		<param2>Test Param [{param1}]</param2>
+		<param3>{mainApp.locale}</param3>
+		<locale>pt-br</locale>
+		<debug>true</debug>
+		<loadFiles>true</loadFiles>
+		<showContextMenu>{debug}</showContextMenu>
+		<hideContextMenuBuiltIn>true</hideContextMenuBuiltIn>
+		<lockStageDuringTransitions>true</lockStageDuringTransitions>
+		
+		<imageProxy>{base}php/img/?url=</imageProxy>
+		
+		<test>
+			<if condition="(true || false) && (true && (true && false)) || true">
+				<then>1</then>
+				<else>2</else>
+			</if>
+		</test>
+		
+		<swf>
+			<if condition="{debug}">
+				<then>swf-debug/</then>
+				<else>swf/</else>
+			</if>
+		</swf>
+		
+		<cache>
+			<if condition="{debug}">
+				<then>?{noCache}</then>
+				<else></else>
+			</if>
+		</cache>
+		
+		<param>
+			<if condition="(true && 1 gt; 2) || false || {locale} == 'pt-br'">
+				<then>
+					<if condition="!{loadFiles}">
+						<then>param value for condition TRUE and loadFiles = false</then>
+						<else>param value for condition TRUE and loadFiles = true</else>
+					</if>
+				</then>
+				<else>param value for condition FALSE</else>
+			</if>
+		</param>
+	</params>
+	
+	<localization>
+		<locale>{mainApp.locale}</locale>
+		<file>{mainApp.base}locales/{mainApp.locale}/xml/dict.xml</file>
+	</localization>
+	
+	<styles>
+		<style1 src="{base}css/main.css" />
+		<style2>
+			<![CDATA[
+			]]>
+		</style2>
+	</styles>
+	
+	<mainController>com.netoleal.asf.test.app.ASFTestMainController</mainController>
+	
+	<!--
+	Supported file types:
+	
+	IMAGE	 = "image";
+	XML		 = "xml";
+	TXT		 = "text";
+	SOUND	 = "sound";
+	SWF		 = "swf";
+	BINARY	 = "binary";
+	VIDEO	 = "video";
+	-->
+	
+	<files>
+		<file id="app" type="swf">{base}{swf}modules/MainController.swf{cache}</file>
+		<!--
+		<file id="test" type="text">
+			<if condition="{debug} = true">
+				<then>{base}files/test-debug.txt</then>
+				<else>{base}files/test.txt</else>
+			</if>
+		</file>
+		<file id="sample" type="image">{base}img/unsorted/sample.jpg</file>
+		<if condition="{loadFiles} = true">
+			<file id="wall1" type="image">
+				<if condition="1 gt; 2">
+					<then>{base}img/wallpapers/1.png</then>
+					<else>{base}img/wallpapers/2.png</else>
+				</if>
+			</file>
+			<file id="wall2" type="image">{base}img/wallpapers/2.png</file>
+			<if condition="{debug} = true">
+				<file id="wall3" type="image">{base}img/wallpapers/3.png</file>
+			</if>
+		</if>
+		-->
+	</files>
+	
+	<metrics>{mainApp.base}xml/metrics.xml</metrics>
+	
+	<sounds>
+		<!--<sound id="mainTrack" type="url" autoPlay="false">{base}media/sounds/track_03.mp3</sound>-->
+	</sounds>
+	
+	<layers>
+		<sections />
+	</layers>
+	
+	<sections layer="sections">
+		<section id="baseSection" viewClass="com.netoleal.asf.test.view.sections.BaseSectionView" loadAtStart="true">
+			<files>
+				<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/Base.swf{cache}</file>
+			</files>
+			
+			<styles>
+				<style>
+					<![CDATA[
+					FacebookFeedSectionView 
+					{
+						x: 90
+					}
+					]]>
+				</style>
+			</styles>
+			
+			<sounds>
+				<sound id="click" type="url" volume="1">{mainApp.base}media/sounds/fx/click.mp3</sound>
+				<sound id="dclick" type="url" volume="1">{mainApp.base}media/sounds/fx/double_click.mp3</sound>
+				<sound id="transition" type="url" volume="1">{mainApp.base}media/sounds/fx/transition.mp3</sound>
+			</sounds>
+			
+			<layers>
+				<base />
+				<sections margins="300,50" />
+				<feed />
+				<loading align="centermiddle" width="0" height="0" margins="100,0" />
+			</layers>
+			
+			<sections layer="sections">
+				<section id="about" viewClass="com.netoleal.asf.test.view.sections.AboutSectionView">
+					<files>
+						<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/About.swf</file>
+						<file id="text" type="text">{mainApp.base}locales/{mainApp.locale}/about/text.txt</file>
+					</files>
+					
+					<localization>
+						<locale>{mainApp.locale}</locale>
+						<file>{mainApp.base}locales/{mainApp.locale}/about/dict.xml</file>
+					</localization>
+				</section>
+				<section id="feed" viewClass="com.netoleal.asf.test.view.sections.FacebookFeedSectionView" closeOnNavigate="false" layer="feed">
+					<params>
+						<appID>{guestbook.appID}</appID>
+						<feedID>130690740338842</feedID>
+						<showInMenu>false</showInMenu>
+						<maxPosts>3</maxPosts>
+					</params>
+				</section>
+				<section id="gallery" viewClass="com.netoleal.asf.test.view.sections.GalleriesSectionView">
+					<files>
+						<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/Gallery.swf</file>
+					</files>
+					
+					<sounds>
+						<sound id="imageIn" type="url" volume="0.3" allowMultipleChannels="true">{mainApp.base}media/sounds/fx/boop.mp3</sound>
+						<sound id="imageClick" type="url" volume="1">{mainApp.base}media/sounds/fx/select.mp3</sound>
+					</sounds>
+					
+					<localization>
+						<locale>{mainApp.locale}</locale>
+						<file>{mainApp.base}locales/{mainApp.locale}/gallery/dict.xml</file>
+					</localization>
+					
+					<layers>
+						<menu margins="0,85"/>
+						<gallery margins="0,130"/>
+					</layers>
+					
+					<sections layer="gallery">
+						<section id="Gallery 1" viewClass="com.netoleal.asf.test.view.sections.gallery.GallerySectionView">
+							<files>
+								<file id="data_xml" type="xml">{mainApp.base}files/galleries/01.xml</file>
+							</files>
+						</section>
+						<section id="Gallery 2" viewClass="com.netoleal.asf.test.view.sections.gallery.GallerySectionView">
+							<files>
+								<file id="data_xml" type="xml">{mainApp.base}files/galleries/02.xml</file>
+							</files>
+						</section>
+						<section id="Gallery 3" viewClass="com.netoleal.asf.test.view.sections.gallery.GallerySectionView">
+							<files>
+								<file id="data_xml" type="xml">{mainApp.base}files/galleries/03.xml</file>
+							</files>
+						</section>
+						<section id="image" viewClass="com.netoleal.asf.test.view.sections.gallery.GalleryImageSectionView">
+							<params>
+								<showInMenu>false</showInMenu>
+							</params>
+							
+							<layers>
+								<back />
+								<image margins="0,20" />
+							</layers>
+						</section>
+					</sections>
+					
+				</section>
+				<section id="guestbook" viewClass="com.netoleal.asf.test.view.sections.GuestBookSectionView">
+					<files>
+						<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/GuestBook.swf{cache}</file>
+					</files>
+					
+					<localization>
+						<locale>{mainApp.locale}</locale>
+						<file>{mainApp.base}locales/{mainApp.locale}/guestbook/dict.xml</file>
+					</localization>
+					
+					<layers>
+						<guestbook />
+						<details margins="20,80"/>
+						<buffering margins="400, 25"/>
+					</layers>
+					
+					<params>
+						<appID>120341404713677</appID>
+						<permissions>publish_stream</permissions>
+						<xid>
+							<if condition="{mainApp.debug}">
+								<then>test</then>
+								<else>live</else>
+							</if>
+						</xid>
+						<linkName>Download ASF Framework</linkName>
+						<linkCaption>ASF Framework - ActionScript 3</linkCaption>
+						<feedLink>http://code.google.com/p/asf-2</feedLink>
+						<cols>9</cols>
+						<rows>8</rows>
+					</params>
+					
+					<sections layer="details">
+						<section id="details" viewClass="com.netoleal.asf.test.view.sections.guestbook.GuestBookCommentDetailsSection">
+							
+						</section>
+					</sections>
+					
+				</section>
+				<section id="contact" viewClass="com.netoleal.asf.test.view.sections.ContactSectionView">
+					<files>
+						<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/Contact.swf</file>
+					</files>
+					<localization>
+						<locale>{mainApp.locale}</locale>
+						<file>{mainApp.base}locales/{mainApp.locale}/contact/dict.xml</file>
+					</localization>
+				</section>
+				
+				<section id="source" type="url" href="{mainApp.base}swf/srcview/" target="_blank"/>
+				<section id="jsTest" type="javascript" method="alert('ASF Framework');" target="_self"/>
+			</sections>
+			
+		</section>
+		
+		<!--
+		<section id="home" viewClass="com.netoleal.asf.test.view.sections.HomeSectionView" layer="" loadAtStart="true" keepDependencies="true">
+			<files>
+				<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/HomeSection.swf</file>
+				<file id="soundsEmbed" type="swf">{mainApp.base}swf/media/EmbedSounds.swf</file>
+				<file id="wallpaper" type="image">{mainApp.base}img/wallpapers/1.png</file>
+			</files>
+			
+			<localization>
+				<locale>{mainApp.locale}</locale>
+				<file>{mainApp.base}locales/{mainApp.locale}/home/home.xml</file>
+			</localization>
+			
+			<layers>
+				<wallpaper />
+				<menu margins="10,130" align="topleft" />
+			</layers>
+			
+			<sounds>
+				<sound id="embed" type="embed" volume="0.5" fadeIn="300" autoPlay="fx" loops="2" allowMultipleChannels="true">com.netoleal.asf.test.media.EmbedTrack</sound>
+				<sound id="track" type="url" volume="1" autoPlay="false" stream="true">{mainApp.base}media/sounds/track_01.mp3</sound>
+				<sound id="fx" ignoreIfPlaying="true" type="url" allowMultipleChannels="true" autoPlay="false" loops="1">{mainApp.base}media/sounds/fx.mp3</sound>
+			</sounds>
+			
+		</section>
+		
+		<section id="Section 2" viewClass="com.netoleal.asf.test.view.sections.SecondSectionView" layer="sections" loadAtStart="false" keepDependencies="false" ignoreChildren="false">
+			<files>
+				<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/SecondSection.swf</file>
+				<file id="wallpaper" type="image">{mainApp.base}img/wallpapers/2.png</file>
+			</files>
+			
+			<layers>
+				<wallpaper />
+				<menu align="topleft" margins="10, 130" />
+				<sub align="topleft" margins="10, 150"/>
+			</layers>
+			
+			<sections>
+				<section id="subsection" viewClass="com.netoleal.asf.test.view.sections.SecondSubSectionView" layer="sub" loadAtStart="true" keepDependencies="true">
+					<files>
+						<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/second/SubSection.swf</file>
+						<file id="wallpaper" type="image">{mainApp.base}img/wallpapers/3.png</file>
+					</files>
+					
+					<layers>
+						<wallpaper />
+						<menu margins="10,130" align="topleft" />
+					</layers>
+					
+					<sounds>
+						<sound id="track" type="url" autoPlay="true" stream="true">{mainApp.base}media/sounds/track_02.mp3</sound>
+						<sound id="fx" type="url" volume="0.2" allowMultipleChannels="true" pan="-1">{mainApp.base}media/sounds/fx2.mp3</sound>
+					</sounds>
+					
+					<localization>
+						<locale>{mainApp.locale}</locale>
+						<file>{mainApp.base}locales/{mainApp.locale}/second/subsection/subsection.xml</file>
+					</localization>
+				</section>
+			</sections>
+			
+		</section>
+		
+		<section id="Section 3" viewClass="com.netoleal.asf.test.view.sections.ThirdSectionView" layer="" loadAtStart="false" keepDependencies="false">
+			<files>
+				<file id="source" type="swf">{mainApp.base}{mainApp.swf}modules/ThirdSection.swf</file>
+			</files>
+		</section>			
+		-->
+	</sections>
+	
+</app>

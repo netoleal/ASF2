@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metrics>
+	<asf>
+		<sample>
+			<site>
+				<loaded />
+			</site>
+			<home>
+				<navigate uri="asf/sample/home/navigate/%s"/>
+			</home>
+			<gallery>
+				<select uri="asf/sample/gallery/select/%s" />
+			</gallery>
+			<guestbook>
+				<connect>
+					<success />
+				</connect>
+			</guestbook>
+		</sample>
+		<test uri="asf/sample/test/%s/%s" />
+	</asf>
+</metrics>
