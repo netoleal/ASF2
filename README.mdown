@@ -17,7 +17,7 @@ http://groups.google.com/group/asfframework
 Cases
 --------
 
-[Alguns projetos publicados desenvolvidos com o ASF2](http://code.google.com/p/asf-2/wiki/Cases_publicados)
+[Alguns projetos publicados desenvolvidos com o ASF2](https://github.com/netoleal/ASF2/wiki/Cases-publicados)
 
 Apoie
 ------
@@ -46,7 +46,7 @@ Alguns documentos úteis
   * [Usando alguns controllers uteis](https://github.com/netoleal/ASF2/wiki/Usando-ViewControllers-uteis)
   * [Trabalhando com Estilos](https://github.com/netoleal/ASF2/wiki/Trabalhando-com-estilos)
 
-*[ASDocs online. Não está completo mas ajuda](http://www.netoleal.com.br/asf/2/asdocs/)*
+**[ASDocs online. Não está completo mas ajuda](http://www.netoleal.com.br/asf/2/asdocs/)**
 
 Apoio
 -------
