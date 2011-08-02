@@ -36,6 +36,10 @@ http://www.netoleal.com.br/asf/2/sample/
 Alguns documentos úteis
 ---------------------------
 
+**[ASDocs online. Não está completo mas ajuda](http://www.netoleal.com.br/asf/2/asdocs/)**
+**[Gravação da palestra online ministrada por Neto Leal sobre o ASF2](http://experts.adobeconnect.com/p8sxk08d813/)**
+**[Vídeo de introdução para iniciantes](http://www.youtube.com/watch?v=tM97aYejJ7Q)**
+
   * [Iniciando com o ASF2](https://github.com/netoleal/ASF2/wiki/Iniciando-com-ASF)
   * [Arquivo XML de configuração](https://github.com/netoleal/ASF2/wiki/XML-de-Configuração)
   * [Trabalhando com dependências](https://github.com/netoleal/ASF2/wiki/Trabalhando-com-dependencias)
@@ -46,12 +50,10 @@ Alguns documentos úteis
   * [Usando alguns controllers uteis](https://github.com/netoleal/ASF2/wiki/Usando-ViewControllers-uteis)
   * [Trabalhando com Estilos](https://github.com/netoleal/ASF2/wiki/Trabalhando-com-estilos)
 
-**[ASDocs online. Não está completo mas ajuda](http://www.netoleal.com.br/asf/2/asdocs/)**
-
 Apoio
 -------
 
-![FDT](http://www.fdt.powerflasher.com http://fdt.powerflasher.de/fileadmin/media/supported_206x50px.png)
+[![FDT](http://fdt.powerflasher.de/fileadmin/media/supported_206x50px.png)](http://www.fdt.powerflasher.com)
 
 License
 -------	
