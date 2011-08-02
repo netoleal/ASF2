@@ -30,6 +30,7 @@ package com.netoleal.asf.test.models
 	import asf.core.util.Sequence;
 	
 	import com.facebook.graph.Facebook;
+	import com.netoleal.asf.test.app.ASFFacebook;
 	
 	public class FacebookFeedModel extends BaseModel
 	{
@@ -49,14 +50,25 @@ package com.netoleal.asf.test.models
 		
 		public function loadPosts( ):Sequence
 		{
+			log( );
+			
 			seq.notifyStart( );
+			
 			Facebook.api( "/" + section.params.feedID + "/Feed", onLoadPosts );
+			
 			return seq;
 		}
 		
 		private function onLoadPosts( result:Array, error:Object ):void
 		{
 			_rawResult = result;
+			
+			if( result ) log( result.length );
+			else 
+			{
+				log( "ERROR!" );
+			}
+			
 			seq.notifyComplete( );
 		}
 		

@@ -47,6 +47,7 @@ package com.netoleal.asf.test.view.sections
 		
 		public function init(p_section:Section, ...parameters):void
 		{
+			log( );
 			controller = new FacebookFeedSectionViewController( new Sprite( ), p_section );
 			p_section.container.addChild( controller.view );
 		}

@@ -135,6 +135,7 @@ package com.netoleal.asf.test.viewcontrollers.sections
 		
 		private function navigateHome( ):void
 		{
+			log( );
 			section.navigation.openSection( { sectionID: "feed", closeCurrentBeforeOpen: false, setAsCurrent: false } );
 		}
 		
