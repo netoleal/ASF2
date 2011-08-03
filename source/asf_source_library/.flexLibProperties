@@ -25,6 +25,7 @@
     <classEntry path="asf.fx.SimpleTween"/>
     <classEntry path="asf.view.BaseLoaderApplication"/>
     <classEntry path="asf.view.UIView"/>
+    <classEntry path="asf.debug.MouseInspectorPanel"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

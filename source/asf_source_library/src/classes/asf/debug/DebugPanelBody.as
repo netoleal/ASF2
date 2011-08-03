@@ -55,6 +55,7 @@ package asf.debug
 			panels = [ 
 				  new PerformancePanel( p_app )
 				, new NavigationPanel( p_app ) 
+				, new MouseInspectorPanel( p_app )
 			];
 			
 			for each( panel in panels )
