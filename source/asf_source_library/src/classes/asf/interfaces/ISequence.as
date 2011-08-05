@@ -25,11 +25,10 @@ THE SOFTWARE.
 */
 package asf.interfaces
 {
-	public interface ISequence
+	public interface ISequence extends IDisposable
 	{
 		function delay( milliseconds:uint = 0 ):ISequence;
 		function queue( queueAction:Function, ... args ):ISequence;
-		function dispose( ):void;
 		function notifyStart( ):ISequence;
 		function notifyComplete( ):ISequence;
 		function get completed( ):Boolean;

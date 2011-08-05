@@ -36,7 +36,7 @@ package asf.core.util
 	[Event( name="transitionStart", type="asf.events.SequenceEvent")]
 	[Event( name="transitionComplete", type="asf.events.SequenceEvent")]
 	
-	public class Sequence extends EventDispatcher implements IDisposable, ISequence
+	public class Sequence extends EventDispatcher implements ISequence
 	{
 		private var _completed:Boolean;
 		private var _started:Boolean;

@@ -28,6 +28,7 @@ package asf.fx
 	import asf.core.util.Sequence;
 	import asf.events.SequenceEvent;
 	import asf.interfaces.ISequence;
+	import asf.utils.EnterFrameDispatcher;
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -37,12 +38,11 @@ package asf.fx
 	import flash.utils.getTimer;
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
-	import asf.utils.EnterFrameDispatcher;
 	
 	[Event(name="change", type="flash.events.Event")]
 	[Event(name="complete", type="flash.events.Event")]
 	
-	public class SimpleTween extends EventDispatcher implements ISequence
+	public class SimpleTween extends Sequence implements ISequence
 	{
 		public static const TYPE_ENTERFRAME:String = "enterFrame";
 		public static const TYPE_INTERVAL:String = "interval";
@@ -57,8 +57,7 @@ package asf.fx
 		private var ease:Function;
 		
 		private var startTime:uint;
-		private var seq:Sequence;
-
+		
 		private var updateCallback:Function;
 		private var interval:int = -1;
 		private var startDelay:int = -1;
@@ -69,9 +68,7 @@ package asf.fx
 		
 		public function SimpleTween( )
 		{
-			super( null );
-			
-			seq = new Sequence( );
+			super( );
 		}
 		
 		public function make( p_target:*, p_props:Object, p_time:uint = 333, p_ease:Function = null, delay:uint = 0, type:String = TYPE_INTERVAL ):ISequence
@@ -94,7 +91,7 @@ package asf.fx
 		
 		public function interpolate( p_startValue:Number = 0, p_endValue:Number = 1, p_time:uint = 333, p_easingTransition:Function = null, delay:uint = 0, type:String = SimpleTween.TYPE_INTERVAL ):ISequence
 		{
-			seq.notifyStart( );
+			notifyStart( );
 			
 			start = p_startValue;
 			end = p_endValue;
@@ -229,9 +226,8 @@ package asf.fx
 			stop( );
 			
 			this.dispatchEvent( new Event( Event.COMPLETE ) );
-			this.dispatchEvent( new SequenceEvent( SequenceEvent.TRANSITION_COMPLETE ) );
 			
-			return seq.notifyComplete( );
+			return super.notifyComplete( );
 		}
 		
 		public function update( callback:Function ):SimpleTween
@@ -260,28 +256,13 @@ package asf.fx
 			return new SimpleTween( );
 		}
 		
-		public function delay( milliseconds:uint = 0 ):ISequence
-		{
-			return seq.delay( milliseconds );
-		}
-		
-		public function queue( queueAction:Function, ... args ):ISequence
-		{
-			return seq.queue.apply( null, [ queueAction ].concat( args ) );
-		}
-		
-		public function dispose( ):void
+		public override function dispose( ):void
 		{
 			stop( );
-			seq.dispose( );
+			super.dispose( );
 		}
 		
-		public function notifyStart( ):ISequence
-		{
-			return seq.notifyStart( );
-		}
-		
-		public function notifyComplete( ):ISequence
+		public override function notifyComplete( ):ISequence
 		{
 			if( running )
 			{
@@ -289,11 +270,6 @@ package asf.fx
 			}
 			
 			return this;
-		}
-		
-		public function get completed( ):Boolean
-		{
-			return seq.completed;
 		}
 		
 		//Static Shortcuts
