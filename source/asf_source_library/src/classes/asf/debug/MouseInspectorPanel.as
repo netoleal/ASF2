@@ -95,6 +95,7 @@ package asf.debug
 			{
 				var p:Point = new Point( target.x, target.y );
 				var b:Rectangle = target.getBounds( target );
+				var contentText:Array = [ ];
 				
 				if( target.parent )
 				{
@@ -107,7 +108,13 @@ package asf.debug
 				rect.x = p.x + b.x;
 				rect.y = p.y + b.y;
 				
-				tf.text = getFullPath( target );
+				contentText = [
+					"target: <b>" + getTargetName( target ) + "</b>",
+					"positions: local( x: <b>" + target.x + "</b>, y: <b>" + target.y + "</b> ) global( x: <b>" + p.x + "</b>, y: <b>" + p.y + "</b> )",
+					"path: " + getFullPath( target )
+				];
+				
+				tf.htmlText = contentText.join( "<br>" );
 				
 				if( !app.stage.contains( rect ) ) app.stage.addChild( rect );
 			}
@@ -121,7 +128,7 @@ package asf.debug
 		{
 			var ar:Array = new Array( );
 			
-			ar.push( getTargetName( target ) );
+			//ar.push( getTargetName( target ) );
 			
 			while( target )
 			{
