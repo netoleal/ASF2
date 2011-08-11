@@ -175,7 +175,7 @@ package asf.core.elements
 		public override function removeChild(child:DisplayObject):DisplayObject
 		{
 			this[ child.name ] = null;
-			return child;
+			return super.removeChild( child );
 		}
 		
 		public override function addChildAt(child:DisplayObject, index:int):DisplayObject
