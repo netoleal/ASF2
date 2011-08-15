@@ -33,6 +33,7 @@ package asf.fx
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
+	import flash.utils.Dictionary;
 	import flash.utils.clearInterval;
 	import flash.utils.clearTimeout;
 	import flash.utils.getTimer;
@@ -51,9 +52,10 @@ package asf.fx
 		private var end:Number;
 		private var time:uint;
 		
-		private var target:*;
-		private var props:Object;
-		private var propsStartValues:Object;
+		private var targets:Array;
+		
+		private var props:Array;
+		private var propsStartValues:Dictionary;
 		private var ease:Function;
 		
 		private var startTime:uint;
@@ -71,17 +73,57 @@ package asf.fx
 			super( );
 		}
 		
+		/**
+		 * Faz uma interpolação de propriedades em um objeto
+		 *  
+		 * @param p_target Objeto que vai receber a interpolação
+		 * @param p_props Propriedades a serem interpoladas no target
+		 * @param p_time Duração da animação em millisegundos
+		 * @param p_ease Função de easing
+		 * @param delay Tempo de espera para iniciar a tween em millisegundos
+		 * @param type Tipo: 'enterFrame' usa a velocidade do framerate do SWF ou 'interval' usa um setInterval de 1000/30 (30 fps)
+		 * @return SimpleTween
+		 * 
+		 */
 		public function make( p_target:*, p_props:Object, p_time:uint = 333, p_ease:Function = null, delay:uint = 0, type:String = TYPE_INTERVAL ):ISequence
 		{
+			return makeMultiple( [ p_target ], [ p_props ], p_time, p_ease, delay, type );
+		}
+		
+		/**
+		 * Realiza uma interpolação em múltiplos targets simultaneamente
+		 *  
+		 * @param p_targets
+		 * @param p_props
+		 * @param p_time
+		 * @param p_ease
+		 * @param p_delay
+		 * @param type
+		 * @return 
+		 * 
+		 */
+		public function makeMultiple( p_targets:Array, p_props:Array, p_time:uint = 333, p_ease:Function = null, p_delay:uint = 0, type:String = TYPE_INTERVAL ):ISequence
+		{
 			var propName:String;
+			var target:*;
+			var tProps:Object;
+			var n:uint = 0;
 			
-			target = p_target;
+			targets = p_targets;
 			props = p_props;
-			propsStartValues = new Object( );
+			propsStartValues = new Dictionary( true );
 			
-			for( propName in props ) propsStartValues[ propName ] = target[ propName ];
+			for each( target in targets )
+			{
+				if( n < props.length )
+				{
+					propsStartValues[ target ] = new Object( );
+					for( propName in props[ n ] ) propsStartValues[ target ][ propName ] = target[ propName ];
+					n++;
+				}
+			}
 			
-			return interpolate( 0, 1, p_time, p_ease, delay, type );
+			return interpolate( 0, 1, p_time, p_ease, p_delay, type );
 		}
 		
 		private function defaultEase(t:Number, b:Number, c:Number, d:Number):Number
@@ -89,6 +131,18 @@ package asf.fx
 			return c * t / d + b;
 		}
 		
+		/**
+		 * Cria uma interpolação numérica simples entre dois números.
+		 *  
+		 * @param p_startValue Valor inicial
+		 * @param p_endValue Valor final
+		 * @param p_time Duração em millisegundos
+		 * @param p_easingTransition Função de easing. Ex.: Qualquer uma do Robert Penner
+		 * @param delay Tempo de espera antes de iniciar em millisegundos
+		 * @param type Tipo: 'enterFrame' usa a velocidade do framerate do SWF ou 'interval' usa um setInterval de 1000/30 (30 fps) 
+		 * @return SimpleTween
+		 * 
+		 */
 		public function interpolate( p_startValue:Number = 0, p_endValue:Number = 1, p_time:uint = 333, p_easingTransition:Function = null, delay:uint = 0, type:String = SimpleTween.TYPE_INTERVAL ):ISequence
 		{
 			notifyStart( );
@@ -132,6 +186,10 @@ package asf.fx
 			this.dispatchEvent( new SequenceEvent( SequenceEvent.TRANSITION_START ) );
 		}
 		
+		/**
+		 * Finaliza a animação 
+		 * 
+		 */
 		public function stop( ):void
 		{
 			EnterFrameDispatcher.removeEventListener( Event.ENTER_FRAME, step );
@@ -139,9 +197,13 @@ package asf.fx
 			if( interval != -1 ) clearInterval( interval );
 			if( startDelay != -1 ) clearTimeout( startDelay );
 			
-			target = null;
+			updateCallback = null;
+			targets = null;
 			props = null;
+			propsStartValues = null;
 			_running = false;
+			
+			super.dispose( );
 		}
 		
 		private function step( evt:Event = null ):void
@@ -151,6 +213,11 @@ package asf.fx
 			updateToProgress( Math.max( 0, Math.min( 1, elapsed / time ) ) );
 		}
 		
+		/**
+		 * Pula para o fim da animação 
+		 * @return 
+		 * 
+		 */
 		public function forceCompleteNow( ):ISequence
 		{
 			updateToProgress( 1 );
@@ -203,20 +270,30 @@ package asf.fx
 		
 		private function updateTargetProperties( ):void
 		{
-			if( target && props )
+			if( targets && props )
 			{
+				var target:*;
+				var n:uint = 0;
 				var propName:String;
 				var propStepValue:Number;
 				var propTargetValue:Number;
 				var propCurrentValue:Number;
 				
-				for( propName in props )
+				for each( target in targets )
 				{
-					propTargetValue = props[ propName ];
-					propCurrentValue = propsStartValues[ propName ];
-					propStepValue = getInterpolatedValue( propCurrentValue, propTargetValue );
-					
-					target[ propName ] = propStepValue;
+					if( propsStartValues[ target ] )
+					{
+						for( propName in propsStartValues[ target ] )
+						{
+							propTargetValue = props[ n ][ propName ];
+							propCurrentValue = propsStartValues[ target ][ propName ];
+							propStepValue = getInterpolatedValue( propCurrentValue, propTargetValue );
+							
+							target[ propName ] = propStepValue;
+						}
+						
+						n++;
+					}
 				}
 			}
 		}
@@ -230,36 +307,65 @@ package asf.fx
 			return super.notifyComplete( );
 		}
 		
+		/**
+		 * Use para executar uma função a cada passo da interpolação. 
+		 * @param callback Função que deverá ser chamada a cada passo da interpolação. Ela pode receber um parâmetro numérico com o valor atual da interpolação. Caso seja uma animação de propriedades, o valor será entre 0 e 1.
+		 * @return 
+		 * 
+		 */
 		public function update( callback:Function ):SimpleTween
 		{
 			updateCallback = callback;
 			return this;
 		}
 		
+		/**
+		 * Retorna o valor numérico parcial da animação. Se for uma animação de propriedades, será entre 0 e 1 
+		 * @return 
+		 * 
+		 */
 		public function get value():Number
 		{
 			return _value;
 		}
 		
+		/**
+		 * Retorna o progresso da animação entre 0 e 1 
+		 * @return 
+		 * 
+		 */
 		public function get progress():Number
 		{
 			return _progress;
 		}
 
+		/**
+		 * Retorna se a interpolação está ou não em execução 
+		 * @return 
+		 * 
+		 */
 		public function get running():Boolean
 		{
 			return _running;
 		}
 		
+		/**
+		 * Atalho para criar uma nova tween. O mesmo que new SimpleTween( ); 
+		 * @return 
+		 * 
+		 */
 		public static function create( ):SimpleTween
 		{
 			return new SimpleTween( );
 		}
 		
+		/**
+		 * Finaliza e limpa a sequence 
+		 * 
+		 */
 		public override function dispose( ):void
 		{
 			stop( );
-			super.dispose( );
 		}
 		
 		public override function notifyComplete( ):ISequence
