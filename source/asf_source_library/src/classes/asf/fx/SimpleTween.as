@@ -95,11 +95,11 @@ package asf.fx
 		 *  
 		 * @param p_targets
 		 * @param p_props
-		 * @param p_time
-		 * @param p_ease
-		 * @param p_delay
-		 * @param type
-		 * @return 
+		 * @param p_time Duração da animação em millisegundos
+		 * @param p_ease Função de easing
+		 * @param delay Tempo de espera para iniciar a tween em millisegundos
+		 * @param type Tipo: 'enterFrame' usa a velocidade do framerate do SWF ou 'interval' usa um setInterval de 1000/30 (30 fps)
+		 * @return SimpleTween
 		 * 
 		 */
 		public function makeMultiple( p_targets:Array, p_props:Array, p_time:uint = 333, p_ease:Function = null, p_delay:uint = 0, type:String = TYPE_INTERVAL ):ISequence

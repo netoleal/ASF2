@@ -29,6 +29,12 @@ package asf.core.viewcontrollers
 	import asf.interfaces.ISequence;
 	import asf.interfaces.ITransitionable;
 	
+	/**
+	 * ViewController básico para objetos que fazem transição de open e close
+	 *  
+	 * @author neto.leal
+	 * 
+	 */
 	public class TransitionableViewController extends AbstractViewController implements ITransitionable
 	{
 		protected var transition:Sequence;
@@ -39,18 +45,36 @@ package asf.core.viewcontrollers
 			transition = new Sequence( );
 		}
 		
+		/**
+		 * Executa a sequencia de abertura/entrada da View
+		 *  
+		 * @param p_delay
+		 * @return 
+		 * 
+		 */
 		public function open( p_delay:uint = 0 ):ISequence
 		{
 			throw new Error( "Method TransitionableViewController.open must be overridden" );
 			return null;
 		}
 		
+		/**
+		 * Executa a sequencia de fechamento/saída da View
+		 *  
+		 * @param p_delay
+		 * @return 
+		 * 
+		 */
 		public function close( p_delay:uint = 0 ):ISequence
 		{
 			throw new Error( "Method TransitionableViewController.close must be overridden" );
 			return null;
 		}
 		
+		/**
+		 * Limpa memória
+		 * 
+		 */
 		public override function dispose():void
 		{
 			transition = null;

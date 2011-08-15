@@ -30,6 +30,11 @@ package asf.core.viewcontrollers
 	import flash.display.Sprite;
 	import flash.events.EventDispatcher;
 	
+	/**
+	 * Classe usada como base para todos os ViewControllers. 
+	 * @author neto.leal
+	 * 
+	 */
 	public class AbstractViewController extends EventDispatcher
 	{
 		private var _view:*;
@@ -45,26 +50,50 @@ package asf.core.viewcontrollers
 			_view = p_view;
 		}
 		
+		/**
+		 * View com tipo indeterminado 
+		 * @return 
+		 * 
+		 */
 		public function get view( ):*
 		{
 			return _view;
 		}
 		
+		/**
+		 * View como Sprite 
+		 * @return 
+		 * 
+		 */
 		public function get viewAsSprite( ):Sprite
 		{
 			return _view as Sprite;
 		}
 		
+		/**
+		 * View como MovieClip 
+		 * @return 
+		 * 
+		 */
 		public function get viewAsMovieClip( ):MovieClip
 		{
 			return _view as MovieClip;
 		}
 		
+		/**
+		 * View como DisplayObject 
+		 * @return 
+		 * 
+		 */
 		public function get viewAsDisplayObject( ):DisplayObject
 		{
 			return _view as DisplayObject;
 		}
 		
+		/**
+		 * Limpa memória 
+		 * 
+		 */
 		public function dispose( ):void
 		{
 			_view = null;

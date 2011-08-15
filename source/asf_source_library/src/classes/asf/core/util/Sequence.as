@@ -51,6 +51,11 @@ package asf.core.util
 			super( null );
 		}
 		
+		/**
+		 * Inicia a sequencia. Na prática só faz diferença se você estiver reutilizando uma sequence já finalizada e queira iniciá-la novamente. 
+		 * @return 
+		 * 
+		 */
 		public function notifyStart( ):ISequence
 		{
 			var e:SequenceEvent = new SequenceEvent( SequenceEvent.TRANSITION_START );
@@ -63,6 +68,11 @@ package asf.core.util
 			return this;
 		}
 		
+		/**
+		 * Finaliza a sequencia. Quando esse método é executado, a Sequence executa todos os queues.  
+		 * @return 
+		 * 
+		 */
 		public function notifyComplete( ):ISequence
 		{
 			var e:SequenceEvent = new SequenceEvent( SequenceEvent.TRANSITION_COMPLETE );
@@ -102,12 +112,24 @@ package asf.core.util
 			}
 		}
 		
+		/**
+		 * Cancela as queues dessa Sequence 
+		 * 
+		 */
 		public function clearQueue( ):void
 		{
 			_queueAction = null;
 			_queueActionArgs = null;
 		}
 		
+		/**
+		 * Põe uma função para ser executada ao final da sequencia.
+		 *  
+		 * @param queueAction Função a ser executada no fim da sequencia
+		 * @param args Argumentos a serem passados para a função
+		 * @return Uma nova sequencia. Caso a função passada em queueAction retorne uma Sequence, a sequencia de resultado desse método irá esperar a sequence retornada pela função terminar para então continuar com seus queues e assim sucessivamente.
+		 * 
+		 */
 		public function queue( queueAction:Function, ... args ):ISequence
 		{
 			_queueTransition = new Sequence( );
@@ -123,21 +145,41 @@ package asf.core.util
 			return _queueTransition;
 		}
 		
+		/**
+		 * Cria uma pausa na Queue 
+		 * @param milliseconds Tempo de pausa em millisegundos
+		 * @return 
+		 * 
+		 */
 		public function delay( milliseconds:uint = 0 ):ISequence
 		{
 			return Delay.start( milliseconds );
 		}
 		
+		/**
+		 * Retorna se a Sequencia está ou não completa 
+		 * @return 
+		 * 
+		 */
 		public function get completed( ):Boolean
 		{
 			return _completed;
 		}
 		
+		/**
+		 * Retorna se a Sequencia está ou não iniciada 
+		 * @return 
+		 * 
+		 */
 		public function get started( ):Boolean
 		{
 			return _started;
 		}
 		
+		/**
+		 * Limpa memória 
+		 * 
+		 */
 		public function dispose( ):void
 		{
 			if( _queueTransition ) _queueTransition.dispose( );

@@ -13,6 +13,24 @@ package asf.core.viewcontrollers
 	[Event( name="rollOver", type="flash.events.MouseEvent" )]
 	[Event( name="rollOut", type="flash.events.MouseEvent" )]
 	
+	/**
+	 * O ButtonViewController é uma classe que extende a InOutViewController. Portanto tem as mesma funcionalidades com algumas adições. O comportamento de animateIn e animateOut é automaticamente relacionado com os eventos de Mouse. Ou seja, o Mouse over e Mouse out já ficam funcionando automaticamente. Ele também vai usar labels específicos na timeline do MovieClip. Você pode usar os mesmos que o InOutViewController ou pode ser mais específico.
+	 * 
+	 * Os frames suportados são:
+	 * <ul>
+	 * <li>in Início da animação de entrada</li>
+	 * <li>inEnd Fim da animação de entrada</li>
+	 * <li>out Início da animação de saída</li>
+	 * <li>outEnd Fim da animação de saída</li>
+	 * <li>over Início da animação de Mouse Over</li>
+	 * <li>overEnd Fim da animação de Mouse Over</li>
+	 * <li>overOutEnd Fim da animação de Mouse Out (o início da animação de out é sempre o frame atual nesse caso)</li>
+	 * <li>inOut Entrada e saída no modo avança/retrocede (também funcionando como MouseOver/MouseOut)</li>
+	 * </ul>
+	 *  
+	 * @author neto.leal
+	 * 
+	 */
 	public class ButtonViewController extends InOutViewController
 	{
 		private var _enabled:Boolean = true;

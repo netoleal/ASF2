@@ -32,14 +32,49 @@ package asf.core.elements
 	
 	public class NavigateParams
 	{
+		/**
+		 * String contendo o ID da seção a ser aberta
+		 */
 		public var sectionID:String = "";
-		public var section:Section = null; 
-		public var setAsCurrent:Boolean = true; 
+		
+		/**
+		 * Objeto Section da seção a ser aberta
+		 */
+		public var section:Section = null;
+		
+		/**
+		 * Caso o parâmetro "closeCurrentBeforeOpen" seja "false" e este seja "true", o framework carregará a próxima seção e só em seguida irá fechar a(s) anterior(es) para então abrir a próxima. Caso os dois sejam "false", nenhuma seção será fechada pela navegação.
+		 */
+		public var setAsCurrent:Boolean = true;
+		
+		/**
+		 * Fecha ou não as seções atuais antes de carregar e abrir a próxima seção
+		 */
 		public var closeCurrentBeforeOpen:Boolean = true; 
+		
+		/**
+		 * Caso true, não afeta o histórico da navegação
+		 */
 		public var preserveHistory:Boolean = false;
+		
+		/**
+		 * Vector contendo as seções que devem ser fechadas após a seção ser aberta
+		 */
 		public var sectionsToCloseAfter:Vector.<Section>;
+		
+		/**
+		 * O mesmo que o parâmetro extraArguments do método Navigation.openSection
+		 */
 		public var extraArguments:Array;
+		
+		/**
+		 * ID ou Section da subseção a ser aberta dentro da seção.
+		 */
 		public var withSubSection:*;
+		
+		/**
+		 * Uma Sprite para ser usada como container. Esse parâmetro sobrescreve a layer da seção configurada no XML. Essa substituição é temporária, ela dura enquanto a seção estiver ativa.
+		 */
 		public var container:Sprite = null;
 		
 		public static function fillTransitionParams(params:*, sectionTransition:NavigateParams, app:ApplicationViewController):NavigateParams

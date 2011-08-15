@@ -35,12 +35,10 @@ package asf.utils
 		* @param	mcToControl - MovieClip instance to control
 		* @param	speed - A speed factor to use in animations
 		*/
-		function TimelineControl( mcToControl:MovieClip, speed:Number = 1 ) {
+		public function TimelineControl( mcToControl:MovieClip, speed:Number = 1 ) {
 						
-			//trace( mcToControl );
 			
 			this.mc = mcToControl;
-			//mcToControl.addEventListener( Event.ENTER_FRAME, this.enterFrame );
 			EnterFrameDispatcher.addEventListener( Event.ENTER_FRAME, this.enterFrame );
 			
 			this.speed = speed;

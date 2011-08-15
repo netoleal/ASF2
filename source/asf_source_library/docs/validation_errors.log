@@ -1,0 +1,3 @@
+Text for description in asf.core.viewcontrollers:InOutViewController/InOutViewController is not valid.
+org.xml.sax.SAXParseException: The end-tag for element type "li" must end with a '>' delimiter.
+

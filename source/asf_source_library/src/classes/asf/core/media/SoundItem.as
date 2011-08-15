@@ -44,17 +44,32 @@ package asf.core.media
 			init( );
 		}
 		
+		/**
+		 * Volume do som 
+		 * @param value
+		 * 
+		 */
 		public function set volume( value:Number ):void
 		{
 			transform.volume = value;
 			soundTransform = transform;
 		}
 		
+		/**
+		 * Volume do som 
+		 * @param value
+		 * 
+		 */
 		public function get volume( ):Number
 		{
 			return transform.volume;
 		}
 		
+		/**
+		 * Objeto SoundTransform do som 
+		 * @param value
+		 * 
+		 */
 		public function set soundTransform( value:SoundTransform ):void
 		{
 			var channel:SoundChannel;
@@ -67,6 +82,11 @@ package asf.core.media
 			}
 		}
 		
+		/**
+		 * Objeto SoundTransform do som 
+		 * @param value
+		 * 
+		 */
 		public function get soundTransform( ):SoundTransform
 		{
 			return transform;
@@ -102,11 +122,22 @@ package asf.core.media
 			}
 		}
 		
+		/**
+		 * Retorna o Model de dados do som. 
+		 * @return 
+		 * 
+		 */
 		public function get model( ):SoundModel
 		{
 			return _model;
 		}
 		
+		/**
+		 * Executa o som de acordo com as regras definidas no XML de configurações 
+		 * @param fromBeginning
+		 * @return 
+		 * 
+		 */
 		public function play( fromBeginning:Boolean = false ):SoundChannel
 		{
 			init( );
@@ -169,11 +200,20 @@ package asf.core.media
 			}
 		}
 		
+		/**
+		 * Para todas as instâncias desse som que estiverem em execução 
+		 * 
+		 */
 		public function stop( ):void
 		{
 			stopAll( );
 		}
 		
+		/**
+		 * Para uma instância de som  
+		 * @param p_channel O Channel a ser parado
+		 * 
+		 */
 		public function stopChannel( p_channel:SoundChannel ):void
 		{
 			var i:int = channels.indexOf( p_channel );
@@ -193,6 +233,10 @@ package asf.core.media
 			}
 		}
 		
+		/**
+		 * Para todos os sons. Mesmo que 'stop' 
+		 * 
+		 */
 		public function stopAll( ):void
 		{
 			if( fadeInTween.running )

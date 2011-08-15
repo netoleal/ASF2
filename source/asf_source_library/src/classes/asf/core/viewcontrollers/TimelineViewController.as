@@ -17,10 +17,21 @@ package asf.core.viewcontrollers
 	[Event( type="asf.events.TimelineEvent", name="lastFrame" )]
 	[Event( type="flash.events.Event", name="enterFrame" )]
 	
+	/**
+	 * ViewController útil para fazer e tratar animações de timeline
+	 *  
+	 * @author neto.leal
+	 * 
+	 */
 	public class TimelineViewController extends AbstractViewController
 	{
 		private var _timeline:TimelineControl;
 		
+		/**
+		 * Construtor 
+		 * @param target Um MovieClip a ter sua timeline controlada por esse ViewController
+		 * 
+		 */
 		public function TimelineViewController( target:MovieClip )
 		{
 			super( target );
@@ -32,6 +43,10 @@ package asf.core.viewcontrollers
 			_timeline.onLastFrame = onLastFrame;
 		}
 		
+		/**
+		 * Para a timeline 
+		 * 
+		 */
 		public function stop( ):void
 		{
 			_timeline.stop( );
@@ -52,6 +67,11 @@ package asf.core.viewcontrollers
 			this.dispatchEvent( new TimelineEvent( TimelineEvent.LAST_FRAME ) );
 		}
 		
+		/**
+		 * Objeto TimelineControl 
+		 * @return 
+		 * 
+		 */
 		public function get timeline( ):TimelineControl
 		{
 			return _timeline;
