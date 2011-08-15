@@ -54,16 +54,19 @@ package asf.core.app
 	 * Classe principal do Framework.
 	 * Exemplo de utilização:
 	 * 
-	 * <p><code>app = new ASF( new Sprite( ), root.loaderInfo, new LoaderMaxFactoryPlugin( ) );
-	 * <br><br>
-	 * app.addEventListener( DependenciesProgressEvent.LOAD_START, onLoadStart );<br>
-	 * app.addEventListener( DependenciesProgressEvent.LOAD_PROGRESS, onLoadProgress );<br>
-	 * app.addEventListener( DependenciesProgressEvent.LOAD_COMPLETE, onLoadComplete );<br>
-	 * <br><br>
-	 * app.params.defaults.config = "../xml/application.xml";<br>
-	 * <br>
-	 * app.loadModel( new URLRequest( app.params.config ) );<br>
-	 * addChild( app.view );</code></p>
+	 * <pre>
+	 * 
+	 * app = new ASF( new Sprite( ), root.loaderInfo, new LoaderMaxFactoryPlugin( ) );
+	 * 
+	 * app.addEventListener( DependenciesProgressEvent.LOAD_START, onLoadStart );
+	 * app.addEventListener( DependenciesProgressEvent.LOAD_PROGRESS, onLoadProgress );
+	 * app.addEventListener( DependenciesProgressEvent.LOAD_COMPLETE, onLoadComplete );
+	 * 
+	 * app.params.defaults.config = "../xml/application.xml";
+	 * 
+	 * app.loadModel( new URLRequest( app.params.config ) );
+	 * addChild( app.view );
+	 * </pre>
 	 * 
 	 * @author neto.leal
 	 * 
