@@ -99,9 +99,9 @@ package asf.utils
 				switch ( axis )
 				{
 					case V:
-						return stage.stageHeight * parseInt( value ) / 100;
+						return stage.stageHeight * parseInt( value ) * 0.01;
 					case H:
-						return stage.stageWidth * parseInt( value ) / 100;
+						return stage.stageWidth * parseInt( value ) * 0.01;
 				}
 			}
 			return Number( value );
@@ -180,7 +180,7 @@ package asf.utils
 			switch ( ruleSet.h )
 			{
 				case CENTER:
-					x += sw2 - ruleSet.width / 2;
+					x += sw2 - ruleSet.width * 0.5;
 					break;
 				case RIGHT:
 					x += sw - ruleSet.width;
@@ -192,7 +192,7 @@ package asf.utils
 			switch ( ruleSet.v )
 			{
 				case MIDDLE:
-					y += sh2 - ruleSet.height / 2;
+					y += sh2 - ruleSet.height * 0.5;
 					break;
 				case BOTTOM:
 					y += sh - ruleSet.height;
