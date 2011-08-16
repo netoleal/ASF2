@@ -6,6 +6,7 @@ package asf.utils
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
+	
 	/**
 	 * @Author: Pedro Moraes
 	 */

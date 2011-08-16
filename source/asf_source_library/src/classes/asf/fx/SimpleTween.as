@@ -202,8 +202,6 @@ package asf.fx
 			props = null;
 			propsStartValues = null;
 			_running = false;
-			
-			super.dispose( );
 		}
 		
 		private function step( evt:Event = null ):void
@@ -366,6 +364,7 @@ package asf.fx
 		public override function dispose( ):void
 		{
 			stop( );
+			super.dispose( );
 		}
 		
 		public override function notifyComplete( ):ISequence
