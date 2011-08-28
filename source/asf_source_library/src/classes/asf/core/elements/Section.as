@@ -81,6 +81,17 @@ package asf.core.elements
 		}
 		
 		/**
+		 * Fecha a seção dentro da navegação da applicação/seção pai
+		 *  
+		 * @return Objeto Sequence 
+		 * 
+		 */
+		public function close( ):Sequence
+		{
+			return this.application.navigation.closeSection( this );
+		}
+		
+		/**
 		 * Retorna a seção ou aplicação pai dessa seção.
 		 *  
 		 * @return 

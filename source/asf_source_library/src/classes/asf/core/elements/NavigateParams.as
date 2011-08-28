@@ -45,12 +45,12 @@ package asf.core.elements
 		/**
 		 * Caso o parâmetro "closeCurrentBeforeOpen" seja "false" e este seja "true", o framework carregará a próxima seção e só em seguida irá fechar a(s) anterior(es) para então abrir a próxima. Caso os dois sejam "false", nenhuma seção será fechada pela navegação.
 		 */
-		public var setAsCurrent:Boolean = true;
+		public var setAsCurrent:Boolean = false;
 		
 		/**
 		 * Fecha ou não as seções atuais antes de carregar e abrir a próxima seção
 		 */
-		public var closeCurrentBeforeOpen:Boolean = true; 
+		public var closeCurrentBeforeOpen:Boolean = false; 
 		
 		/**
 		 * Caso true, não afeta o histórico da navegação

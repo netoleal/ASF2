@@ -256,6 +256,10 @@ package asf.core.elements
 			sectionTransition = NavigateParams.fillTransitionParams( params, sectionTransition, this.app );
 			
 			section = sectionTransition.section;
+			
+			sectionTransition.closeCurrentBeforeOpen = sectionTransition.closeCurrentBeforeOpen || section.sectionModel.closeCurrentBeforeOpen;
+			sectionTransition.setAsCurrent = sectionTransition.setAsCurrent || section.sectionModel.setAsCurrent;
+			
 			sectionTransition.extraArguments = sectionTransition.extraArguments || extraArguments;
 			
 			if( !section ) 

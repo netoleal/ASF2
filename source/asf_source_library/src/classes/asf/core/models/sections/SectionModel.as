@@ -56,6 +56,16 @@ package asf.core.models.sections
 			return this.getParsedValue( raw.@closeOnNavigate || raw.closeOnNavigate ) != "false";
 		}
 		
+		public function get closeCurrentBeforeOpen( ):Boolean
+		{
+			return this.getParsedValue( raw.@closeCurrentBeforeOpen || raw.closeCurrentBeforeOpen ) != "false";
+		}
+		
+		public function get setAsCurrent( ):Boolean
+		{
+			return this.getParsedValue( raw.@setAsCurrent || raw.setAsCurrent ) != "false";
+		}
+		
 		public function get keepDependencies( ):Boolean
 		{
 			return this.getParsedValue( raw.@keepDependencies || raw.keepDependencies ) == "true";
