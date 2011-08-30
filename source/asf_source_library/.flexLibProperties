@@ -30,6 +30,7 @@
     <classEntry path="asf.fx.BrightnessProperty"/>
     <classEntry path="asf.fx.SimpleTweenProperties"/>
     <classEntry path="asf.fx.BlurProperty"/>
+    <classEntry path="asf.fx.ScaleProperty"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

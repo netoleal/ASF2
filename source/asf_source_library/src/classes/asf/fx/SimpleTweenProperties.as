@@ -9,11 +9,13 @@ package asf.fx
 	{
 		public static const brightness:String = "brightness";
 		public static const blur:String = "blur";
+		public static const scale:String = "scale";
 		
 		public static function init( ):void
 		{
 			SimpleTween.registerSpecialProperty( brightness, new BrightnessProperty( ) );
 			SimpleTween.registerSpecialProperty( blur, new BlurProperty( ) );
+			SimpleTween.registerSpecialProperty( scale, new ScaleProperty( ) );
 		}
 	}
 }
