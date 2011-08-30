@@ -28,6 +28,7 @@ package asf.fx
 	import asf.core.util.Sequence;
 	import asf.events.SequenceEvent;
 	import asf.interfaces.ISequence;
+	import asf.interfaces.ISpecialProperty;
 	import asf.utils.EnterFrameDispatcher;
 	
 	import flash.events.Event;
@@ -47,6 +48,8 @@ package asf.fx
 	{
 		public static const TYPE_ENTERFRAME:String = "enterFrame";
 		public static const TYPE_INTERVAL:String = "interval";
+		
+		private static var specialProperties:Object;
 		
 		private var start:Number;
 		private var end:Number;
@@ -71,6 +74,23 @@ package asf.fx
 		public function SimpleTween( )
 		{
 			super( );
+		}
+		
+		public static function registerSpecialProperty( name:String, property:ISpecialProperty ):void
+		{
+			if( !specialProperties ) specialProperties = { };
+			specialProperties[ name ] = property;
+		}
+		
+		public static function unregisterSpecialProperty( name:String ):void
+		{
+			if( specialProperties && specialProperties[ name ] && specialProperties[ name ] is ISpecialProperty )
+			{
+				( specialProperties[ name ] as ISpecialProperty ).dispose( );
+				
+				specialProperties[ name ] = null;
+				delete specialProperties[ name ];
+			}
 		}
 		
 		/**
@@ -118,12 +138,30 @@ package asf.fx
 				if( n < props.length )
 				{
 					propsStartValues[ target ] = new Object( );
-					for( propName in props[ n ] ) propsStartValues[ target ][ propName ] = target[ propName ];
+					for( propName in props[ n ] ) propsStartValues[ target ][ propName ] = getTargetPropertyValue( target, propName );
 					n++;
 				}
 			}
 			
 			return interpolate( 0, 1, p_time, p_ease, p_delay, type );
+		}
+		
+		private function getTargetPropertyValue( target:*, propName:String ):Number
+		{
+			if( specialProperties && specialProperties[ propName ] && specialProperties[ propName ] is ISpecialProperty )
+			{
+				return ( specialProperties[ propName ] as ISpecialProperty ).getValue( target );
+			}
+			
+			return target[ propName ];
+		}
+		
+		private function setTargetPropertyValue( target:*, propName:String, value:Number ):void
+		{
+			if(  specialProperties && specialProperties[ propName ] && specialProperties[ propName ] is ISpecialProperty )
+				( specialProperties[ propName ] as ISpecialProperty ).setValue( target, value );
+			else
+				target[ propName ] = value;
 		}
 		
 		private function defaultEase(t:Number, b:Number, c:Number, d:Number):Number
@@ -256,7 +294,7 @@ package asf.fx
 			}
 		}
 		
-		private function getInterpolatedValue( p_start:Number, p_end:Number ):Number
+		public function getInterpolatedValue( p_start:Number, p_end:Number ):Number
 		{
 			if( ease != null )
 			{
@@ -287,7 +325,7 @@ package asf.fx
 							propCurrentValue = propsStartValues[ target ][ propName ];
 							propStepValue = getInterpolatedValue( propCurrentValue, propTargetValue );
 							
-							target[ propName ] = propStepValue;
+							setTargetPropertyValue( target, propName, propStepValue );
 						}
 						
 						n++;

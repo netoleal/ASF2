@@ -26,7 +26,7 @@ package br.pedromoraes.btween.properties.color
 			var offset:Number = (brightness > 0) ? brightness * (256/1) : 0;
 			finalTransform = new ColorTransform(1 - Math.abs(brightness), 1 - Math.abs(brightness), 1 - Math.abs(brightness), 1, offset, offset, offset);
 		}
-
+		
 		public function update(pTween:BTween, piElapsed:int):void
 		{
 			if (!startValues) init();

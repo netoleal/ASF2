@@ -26,6 +26,10 @@
     <classEntry path="asf.view.BaseLoaderApplication"/>
     <classEntry path="asf.view.UIView"/>
     <classEntry path="asf.debug.MouseInspectorPanel"/>
+    <classEntry path="asf.interfaces.ISpecialProperty"/>
+    <classEntry path="asf.fx.BrightnessProperty"/>
+    <classEntry path="asf.fx.SimpleTweenProperties"/>
+    <classEntry path="asf.fx.BlurProperty"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
