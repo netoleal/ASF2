@@ -89,7 +89,7 @@ package asf.core.viewcontrollers
 			view.visible = value;
 		}
 		
-		private function onClick( evt:MouseEvent ):void
+		protected function onClick( evt:MouseEvent ):void
 		{
 			if( this.interactionEnabled )
 			{
