@@ -156,10 +156,10 @@ package asf.fx
 			return target[ propName ];
 		}
 		
-		private function setTargetPropertyValue( target:*, propName:String, value:Number ):void
+		private function setTargetPropertyValue( target:*, propName:String, value:Number, start:Number, end:Number ):void
 		{
 			if(  specialProperties && specialProperties[ propName ] && specialProperties[ propName ] is ISpecialProperty )
-				( specialProperties[ propName ] as ISpecialProperty ).setValue( target, value );
+				( specialProperties[ propName ] as ISpecialProperty ).setValue( target, value, start, end );
 			else
 				target[ propName ] = value;
 		}
@@ -325,7 +325,7 @@ package asf.fx
 							propCurrentValue = propsStartValues[ target ][ propName ];
 							propStepValue = getInterpolatedValue( propCurrentValue, propTargetValue );
 							
-							setTargetPropertyValue( target, propName, propStepValue );
+							setTargetPropertyValue( target, propName, propStepValue, propCurrentValue, propTargetValue );
 						}
 						
 						n++;

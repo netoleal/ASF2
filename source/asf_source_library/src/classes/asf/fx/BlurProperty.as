@@ -26,12 +26,12 @@ package asf.fx
 			return r;// + blur.blurY ) / 2;
 		}
 		
-		public function setValue(target:*, value:Number):void
+		public function setValue(target:*, value:Number, start:Number = 0, end:Number = 0):void
 		{
-			BlurProperty.setValue( target, value );
+			BlurProperty.setValue( target, value, start, end );
 		}
 		
-		public static function setValue( target:*, value:Number ):void
+		public static function setValue( target:*, value:Number, start:Number = 0, end:Number = 0 ):void
 		{
 			var filters:Array;
 			var i:uint;

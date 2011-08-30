@@ -18,12 +18,12 @@ package asf.fx
 			return target.scaleX;
 		}
 		
-		public function setValue(target:*, value:Number):void
+		public function setValue(target:*, value:Number, start:Number = 0, end:Number = 0 ):void
 		{
-			ScaleProperty.setValue( target, value );
+			ScaleProperty.setValue( target, value, start, end );
 		}
 		
-		public static function setValue(target:*, value:Number):void
+		public static function setValue(target:*, value:Number, start:Number = 0, end:Number = 0):void
 		{
 			target.scaleX = value;
 			target.scaleY = value;

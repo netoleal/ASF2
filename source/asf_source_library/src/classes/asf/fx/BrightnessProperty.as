@@ -38,12 +38,12 @@ package asf.fx
 			return Math.max( Math.min( val, max ), min );
 		}
 		
-		public function setValue( target:*, value:Number ):void
+		public function setValue( target:*, value:Number, start:Number = 0, end:Number = 0 ):void
 		{
-			BrightnessProperty.setValue( target, value );
+			BrightnessProperty.setValue( target, value, start, end );
 		}
 		
-		public static function setValue( target:*, value:Number ):void
+		public static function setValue( target:*, value:Number, start:Number = 0, end:Number = 0 ):void
 		{
 			var t:DisplayObject = target as DisplayObject;
 			var ct:ColorTransform;
