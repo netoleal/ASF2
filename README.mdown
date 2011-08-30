@@ -48,6 +48,7 @@ Alguns documentos úteis
   * [Fazendo tracking e analytics](https://github.com/netoleal/ASF2/wiki/Usando-métricas-e-analytics)
   * [Usando alguns controllers uteis](https://github.com/netoleal/ASF2/wiki/Usando-ViewControllers-uteis)
   * [Trabalhando com Estilos](https://github.com/netoleal/ASF2/wiki/Trabalhando-com-estilos)
+  * [**Gist**: Exemplo de propriedades especiais com a SimpleTween(https://gist.github.com/1180638)]
 
 Apoio
 -------
