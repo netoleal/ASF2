@@ -31,6 +31,7 @@
     <classEntry path="asf.fx.SimpleTweenProperties"/>
     <classEntry path="asf.fx.BlurProperty"/>
     <classEntry path="asf.fx.ScaleProperty"/>
+    <classEntry path="asf.fx.AutoAlphaProperty"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
