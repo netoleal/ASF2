@@ -149,6 +149,8 @@ package asf.core.elements
 					
 					openedSections.splice( i, 1 );
 					
+					lastChangeSection = openedSections.length > 0? openedSections[ openedSections.length - 1 ]: null;
+					
 					closer.execute( );
 					
 					return closer;
@@ -196,6 +198,8 @@ package asf.core.elements
 			
 			closer = new SectionsCloser( sectionsToClose.concat( ), p_order, p_parallel, p_delays );
 			subtractSectionsFromOpened( sectionsToClose );
+			
+			lastChangeSection = openedSections.length > 0? openedSections[ openedSections.length - 1 ]: null;
 			
 			closer.execute( );
 			
@@ -324,6 +328,8 @@ package asf.core.elements
 		private function dispatchChange( toSection:Section ):void
 		{
 			var e:NavigationEvent = new NavigationEvent( NavigationEvent.CHANGE );
+			
+			app.log( LogLevel.INFO_3, toSection, lastChangeSection );
 			
 			if( toSection != lastChangeSection )
 			{
