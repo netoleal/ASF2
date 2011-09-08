@@ -8,12 +8,17 @@ package asf.utils
 		private var t:DisplayObject;
 		private var r:Rectangle;
 		
-		public function ScrollRect( target:DisplayObject, x:Number=0, y:Number=0, width:Number=0, height:Number=0)
+		public function ScrollRect( p_target:DisplayObject, x:Number=0, y:Number=0, width:Number=0, height:Number=0)
 		{
 			r = new Rectangle( x, y, width, height );
 			
-			t = target;
+			t = p_target;
 			t.scrollRect = r;
+		}
+		
+		public function get target( ):DisplayObject
+		{
+			return t;
 		}
 		
 		public function dispose( ):void

@@ -440,7 +440,7 @@ package asf.fx
 		
 		public static function fade( target:*, amount:Number = 1, time:uint = 333, delay:uint = 0 ):ISequence
 		{
-			return create( ).make( target, { allpha: amount }, time, null, delay );
+			return create( ).make( target, { alpha: amount }, time, null, delay );
 		}
 		
 		public static function slide( target:*, x:Number, y:Number, time:uint = 333, delay:uint = 0, ease:Function = null ):ISequence
