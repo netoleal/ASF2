@@ -25,6 +25,7 @@ THE SOFTWARE.
 */
 package asf.events
 {
+	import asf.core.elements.NavigateParams;
 	import asf.core.elements.Section;
 	
 	import flash.events.Event;
@@ -32,12 +33,20 @@ package asf.events
 	public class NavigationEvent extends Event
 	{
 		public static const CHANGE:String = "change";
+		public static const WILL_CHANGE:String = "willChange";
 		
 		public var section:Section;
+		public var canceled:Boolean = false;
+		public var params:NavigateParams;
 		
 		public function NavigationEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
+		}
+		
+		public function cancelOperation( ):void
+		{
+			canceled = true;
 		}
 	}
 }

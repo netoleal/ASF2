@@ -43,6 +43,7 @@ package asf.core.elements
 	import flash.utils.Dictionary;
 	
 	[Event( name="change", type="asf.events.NavigationEvent" )]
+	[Event( name="willChange", type="asf.events.NavigationEvent" )]
 	
 	public class Navigation extends EventDispatcher
 	{
@@ -254,6 +255,7 @@ package asf.core.elements
 		{
 			app.log( LogLevel.INFO_3, params );
 			
+			var navEvent:NavigationEvent;
 			var sectionTransition:NavigateParams = new NavigateParams( );
 			var section:Section;
 			
@@ -265,6 +267,13 @@ package asf.core.elements
 			sectionTransition.setAsCurrent = sectionTransition.setAsCurrent || section.sectionModel.setAsCurrent;
 			
 			sectionTransition.extraArguments = sectionTransition.extraArguments || extraArguments;
+			
+			navEvent = new NavigationEvent( NavigationEvent.WILL_CHANGE );
+			navEvent.section = section;
+			navEvent.params = sectionTransition;
+			
+			this.dispatchEvent( navEvent );
+			if( navEvent.canceled ) return section;
 			
 			if( !section ) 
 			{
@@ -336,6 +345,8 @@ package asf.core.elements
 				app.log( LogLevel.INFO_3, "Changing to: " + toSection.id );
 				
 				e.section = toSection;
+				e.params = dictTransitions[ e.section ];
+				
 				lastChangeSection = toSection;
 				
 				this.dispatchEvent( e );
