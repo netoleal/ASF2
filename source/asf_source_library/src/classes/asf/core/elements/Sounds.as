@@ -30,6 +30,11 @@ package asf.core.elements
 			init( );
 		}
 		
+		public function get soundItems( ):Vector.<SoundItem>
+		{
+			return _items.concat( );
+		}
+		
 		private function init( ):void
 		{
 			var itemModel:SoundModel;
