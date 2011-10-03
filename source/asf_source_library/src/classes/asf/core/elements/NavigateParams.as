@@ -70,7 +70,7 @@ package asf.core.elements
 		/**
 		 * ID ou Section da subseção a ser aberta dentro da seção.
 		 */
-		public var withSubSection:*;
+		public var withSubSection:* = "";
 		
 		/**
 		 * Uma Sprite para ser usada como container. Esse parâmetro sobrescreve a layer da seção configurada no XML. Essa substituição é temporária, ela dura enquanto a seção estiver ativa.

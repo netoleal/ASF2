@@ -268,6 +268,11 @@ package asf.core.elements
 			
 			sectionTransition.extraArguments = sectionTransition.extraArguments || extraArguments;
 			
+			if( section.sectionModel.autoSubSection != "" && sectionTransition.withSubSection == "" )
+			{
+				sectionTransition.withSubSection = section.navigation.getSectionByID( section.sectionModel.autoSubSection );
+			}
+			
 			navEvent = new NavigationEvent( NavigationEvent.WILL_CHANGE );
 			navEvent.section = section;
 			navEvent.params = sectionTransition;

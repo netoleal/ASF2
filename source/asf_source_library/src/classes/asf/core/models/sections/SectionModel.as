@@ -61,6 +61,11 @@ package asf.core.models.sections
 			return this.getParsedValue( raw.@closeCurrentBeforeOpen || raw.closeCurrentBeforeOpen ) != "false";
 		}
 		
+		public function get autoSubSection( ):String
+		{
+			return this.getParsedValue( raw.@autoSubSection || raw.autoSubSection );
+		}
+		
 		public function get setAsCurrent( ):Boolean
 		{
 			return this.getParsedValue( raw.@setAsCurrent || raw.setAsCurrent ) != "false";

@@ -150,7 +150,7 @@ package asf.core.elements
 			
 			_transitionSubSection = null;
 			
-			log( LogLevel.INFO_3, id );
+			log( LogLevel.INFO_3, id, withSubSection );
 			
 			if( withSubSection != "" )
 			{
@@ -165,7 +165,7 @@ package asf.core.elements
 			
 			openTrans = view.open( ) as Sequence;
 			
-			if( openTrans )
+			if( openTrans && !openTrans.completed )
 			{
 				openTrans.addEventListener( SequenceEvent.TRANSITION_COMPLETE, dispatchViewOpen );
 			}
