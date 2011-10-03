@@ -3,8 +3,6 @@ ASF Framework
 
 ASF é um Framework desenvolvido em ActionScript 3 que tem como principal objetivo tornar fácil as tarefas comuns em desenvolvimento de projetos baseados em Flash para a web.
 
-Atualmente ASF está em fase de desenvolvimento de sua versão 2.
-
 Siga-nos no Twitter também:
 https://twitter.com/ASFFramework
 
