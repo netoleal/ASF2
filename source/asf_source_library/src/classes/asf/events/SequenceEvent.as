@@ -32,6 +32,8 @@ package asf.events
 		public static const TRANSITION_COMPLETE:String = "transitionComplete";
 		public static const TRANSITION_START:String = "transitionStart";
 		
+		public var completeArguments:Array;
+		
 		public function SequenceEvent( type:String, bubbles:Boolean=false, cancelable:Boolean=false )
 		{
 			super(type, bubbles, cancelable);

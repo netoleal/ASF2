@@ -82,6 +82,8 @@ package asf.core.util
 			
 			executeQueue.apply( null, args );
 			
+			e.completeArguments = args;
+			
 			this.dispatchEvent( e );
 			
 			return this;
@@ -92,7 +94,8 @@ package asf.core.util
 			if( this._queueTransition && this._queueAction != null )
 			{
 				var _queueTransition:ISequence = this._queueTransition;
-				var actionResult:* = _queueAction.apply( null, [ ].concat( _queueActionArgs ).concat( args ) );
+				var completeArguments:Array = args;
+				var actionResult:* = _queueAction.apply( null, [ ].concat( _queueActionArgs ).concat( completeArguments ) );
 				
 				_queueTransition.notifyStart( );
 				
@@ -100,12 +103,12 @@ package asf.core.util
 				{
 					( actionResult as EventDispatcher ).addEventListener( SequenceEvent.TRANSITION_COMPLETE, function( e:SequenceEvent ):void
 					{
-						_queueTransition.notifyComplete.apply( null, args );
+						_queueTransition.notifyComplete.apply( null, e.completeArguments );
 					} );
 				}
 				else
 				{
-					_queueTransition.notifyComplete.apply( null, args );
+					_queueTransition.notifyComplete.apply( null, completeArguments );
 				}
 				
 				clearQueue( );
