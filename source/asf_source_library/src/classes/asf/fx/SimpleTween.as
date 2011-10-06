@@ -334,13 +334,13 @@ package asf.fx
 			}
 		}
 		
-		private function complete( ):ISequence
+		private function complete( ... args ):ISequence
 		{
 			stop( );
 			
 			this.dispatchEvent( new Event( Event.COMPLETE ) );
 			
-			return super.notifyComplete( );
+			return super.notifyComplete.apply( null, args );
 		}
 		
 		/**
@@ -405,11 +405,11 @@ package asf.fx
 			super.dispose( );
 		}
 		
-		public override function notifyComplete( ):ISequence
+		public override function notifyComplete( ... args ):ISequence
 		{
 			if( running )
 			{
-				return complete( );
+				return complete.apply( null, args );
 			}
 			
 			return this;

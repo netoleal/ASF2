@@ -62,7 +62,8 @@ package asf.utils
 		* @param	removeAfterExec Define if function should be removed after execution
 		*/
 		public function addFrameFunction( frameNumber:uint, frameFunction:Function, scope:Object, args:Array, removeAfterExec:Boolean ):void {
-			if( this.frameFunctions[ frameNumber ] == undefined ) {
+			
+			if( !this.frameFunctions[ frameNumber ] ) {
 				this.frameFunctions[ frameNumber ] = new Array();
 			}
 				
@@ -77,7 +78,7 @@ package asf.utils
 		*/
 		public function removeFrameFunction( frameNumber:uint, frameFunction:Function ):void {
 	
-			if( this.frameFunctions[ frameNumber ] != undefined ) {
+			if( this.frameFunctions[ frameNumber ] ) {
 				//trace( "[TimeLineControl] I will remove a function from frame " + frameNumber + ", ok?" );
 				var fnReg:Object;
 				
@@ -362,22 +363,30 @@ package asf.utils
 		public function execFrameFunction( frameNumber:uint , removeAfterExec:Boolean = false ):void {
 					
 			var fnReg:Object;
-			/*
-			if( this.frameFunctions != null &&  this.frameFunctions[ frameNumber ] != undefined && !this.frameFunctions[ frameNumber ].length ) return;
 			
-			for(var n = 0, t = this.frameFunctions[ frameNumber ].length; n < t; n++ ){
-				fnReg = this.frameFunctions[ frameNumber ][ n ];
-				fnReg.frameFunction.apply( fnReg.scope, fnReg.args );
-				
-				if( fnReg.removeAfterExec ) {
-					this.removeFrameFunction( frameNumber, fnReg.frameFunction );
+			if( this.frameFunctions && 
+				this.frameFunctions[ frameNumber ] != null && 
+				this.frameFunctions[ frameNumber ].length == 0 ) return;
+			
+			try
+			{
+				for(var n:uint = 0, t:uint = this.frameFunctions[ frameNumber ].length; n < t; n++ )
+				{
+					fnReg = this.frameFunctions[ frameNumber ][ n ];
+					fnReg.frameFunction.apply( fnReg.scope, fnReg.args );
+					
+					if( fnReg.removeAfterExec ) {
+						this.removeFrameFunction( frameNumber, fnReg.frameFunction );
+					}
 				}
 			}
+			catch( e:Error ){ }
 			
-			if( removeAfterExec ) {
+			if( removeAfterExec ) 
+			{
 				this.frameFunctions[ frameNumber ] = new Array;
 			}
-			*/
+			
 		}
 	}
 }

@@ -30,7 +30,7 @@ package asf.interfaces
 		function delay( milliseconds:uint = 0 ):ISequence;
 		function queue( queueAction:Function, ... args ):ISequence;
 		function notifyStart( ):ISequence;
-		function notifyComplete( ):ISequence;
+		function notifyComplete( ... args ):ISequence;
 		function get completed( ):Boolean;
 	}
 }

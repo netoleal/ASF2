@@ -49,8 +49,7 @@ package asf.core.viewcontrollers
 	 */
 	public class InOutViewController extends TimelineViewController
 	{
-		protected var framesLabels:Array;
-		protected var labels:Array;
+		
 		protected var transition:Sequence;
 		
 		private var _target:MovieClip;
@@ -69,11 +68,6 @@ package asf.core.viewcontrollers
 			
 			useFade = p_useFade;
 			_target = p_view;
-			
-			framesLabels = _target.currentLabels;
-			labels = new Array( );
-			
-			for each( var label:FrameLabel in framesLabels ) labels.push( label.name );
 			
 			//target.stop( );
 			target.gotoAndStop( 1 );
@@ -218,17 +212,7 @@ package asf.core.viewcontrollers
 			return labels.indexOf( TimelineInOutLabels.IN_OUT ) != -1;
 		}
 		
-		public function getFrameNumberForLabel( label:String ):int
-		{
-			var index:int = labels.indexOf( label );
-			var frameLabel:FrameLabel;
-			
-			if( index == -1 ) return index;
-			
-			frameLabel = framesLabels[ index ];
-			
-			return frameLabel.frame;
-		}
+		
 		
 		public function get target( ):MovieClip
 		{

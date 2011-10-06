@@ -7,11 +7,14 @@
  **/
 package asf.core.viewcontrollers
 {
+	import asf.core.util.Sequence;
 	import asf.events.TimelineEvent;
-
+	import asf.interfaces.ISequence;
+	import asf.utils.TimelineControl;
+	
+	import flash.display.FrameLabel;
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import asf.utils.TimelineControl;
 	
 	[Event( type="asf.events.TimelineEvent", name="firstFrame" )]
 	[Event( type="asf.events.TimelineEvent", name="lastFrame" )]
@@ -26,6 +29,8 @@ package asf.core.viewcontrollers
 	public class TimelineViewController extends AbstractViewController
 	{
 		private var _timeline:TimelineControl;
+		protected var framesLabels:Array;
+		protected var labels:Array;
 		
 		/**
 		 * Construtor 
@@ -41,6 +46,11 @@ package asf.core.viewcontrollers
 			_timeline.onFrame = onEnterFrame;
 			_timeline.onFirstFrame = onFirstFrame;
 			_timeline.onLastFrame = onLastFrame;
+			
+			framesLabels = target.currentLabels;
+			labels = new Array( );
+			
+			for each( var label:FrameLabel in framesLabels ) labels.push( label.name );
 		}
 		
 		/**
@@ -50,6 +60,40 @@ package asf.core.viewcontrollers
 		public function stop( ):void
 		{
 			_timeline.stop( );
+		}
+		
+		public function gotoAndStop( frame:* ):void
+		{
+			if( frame is String )
+			{
+				frame = getFrameNumberForLabel( frame );
+			}
+			
+			_timeline.gotoAndStop( frame );
+		}
+		
+		public function gotoAndPlay( frame:* ):void
+		{
+			if( frame is String )
+			{
+				frame = getFrameNumberForLabel( frame );
+			}
+			
+			_timeline.gotoAndPlay( frame );
+		}
+		
+		public function animateToFrame( frame:* ):ISequence
+		{
+			var seq:Sequence = new Sequence( );
+			
+			if( frame is String )
+			{
+				frame = getFrameNumberForLabel( frame );
+			}
+			
+			timeline.animateToFrame( frame, seq.notifyComplete );
+			
+			return seq;
 		}
 		
 		private function onEnterFrame( frameNumber:uint ):void
@@ -65,6 +109,18 @@ package asf.core.viewcontrollers
 		private function onLastFrame( ):void
 		{
 			this.dispatchEvent( new TimelineEvent( TimelineEvent.LAST_FRAME ) );
+		}
+		
+		public function getFrameNumberForLabel( label:String ):int
+		{
+			var index:int = labels.indexOf( label );
+			var frameLabel:FrameLabel;
+			
+			if( index == -1 ) return index;
+			
+			frameLabel = framesLabels[ index ];
+			
+			return frameLabel.frame;
 		}
 		
 		/**

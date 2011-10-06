@@ -73,26 +73,26 @@ package asf.core.util
 		 * @return 
 		 * 
 		 */
-		public function notifyComplete( ):ISequence
+		public function notifyComplete( ... args ):ISequence
 		{
 			var e:SequenceEvent = new SequenceEvent( SequenceEvent.TRANSITION_COMPLETE );
 			
 			_started = false;
 			_completed = true;
 			
-			executeQueue( );
+			executeQueue.apply( null, args );
 			
 			this.dispatchEvent( e );
 			
 			return this;
 		}
 		
-		private function executeQueue( ):void
+		private function executeQueue( ... args ):void
 		{
 			if( this._queueTransition && this._queueAction != null )
 			{
 				var _queueTransition:ISequence = this._queueTransition;
-				var actionResult:* = _queueAction.apply( null, _queueActionArgs );
+				var actionResult:* = _queueAction.apply( null, [ ].concat( _queueActionArgs ).concat( args ) );
 				
 				_queueTransition.notifyStart( );
 				
@@ -100,12 +100,12 @@ package asf.core.util
 				{
 					( actionResult as EventDispatcher ).addEventListener( SequenceEvent.TRANSITION_COMPLETE, function( e:SequenceEvent ):void
 					{
-						_queueTransition.notifyComplete( );
+						_queueTransition.notifyComplete.apply( null, args );
 					} );
 				}
 				else
 				{
-					_queueTransition.notifyComplete( );
+					_queueTransition.notifyComplete.apply( null, args );
 				}
 				
 				clearQueue( );
