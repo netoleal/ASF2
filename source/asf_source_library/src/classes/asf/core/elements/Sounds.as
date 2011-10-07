@@ -165,7 +165,7 @@ package asf.core.elements
 			
 			if( item )
 			{
-				log( LogLevel.INFO_3, item.model.id ); 
+				app.log( LogLevel.INFO_3, item.model.id ); 
 					
 				i = _activeItems.indexOf( item );
 				if( i != -1 )

@@ -61,7 +61,7 @@ package asf.utils
 		* @param	args Arguments for function execution if needed
 		* @param	removeAfterExec Define if function should be removed after execution
 		*/
-		public function addFrameFunction( frameNumber:uint, frameFunction:Function, scope:Object, args:Array, removeAfterExec:Boolean ):void {
+		public function addFrameFunction( frameNumber:uint, frameFunction:Function, scope:Object = null, args:Array = null, removeAfterExec:Boolean = false ):void {
 			
 			if( !this.frameFunctions[ frameNumber ] ) {
 				this.frameFunctions[ frameNumber ] = new Array();

@@ -82,6 +82,12 @@ package asf.core.viewcontrollers
 			_timeline.gotoAndPlay( frame );
 		}
 		
+		public function animateBetweenFrames( start:*, end:* ):ISequence
+		{
+			timeline.gotoAndStop( start );
+			return animateToFrame( end );
+		}
+		
 		public function animateToFrame( frame:* ):ISequence
 		{
 			var seq:Sequence = new Sequence( );
