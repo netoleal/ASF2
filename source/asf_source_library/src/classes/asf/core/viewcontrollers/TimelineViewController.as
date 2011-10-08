@@ -59,7 +59,7 @@ package asf.core.viewcontrollers
 		 */
 		public function stop( ):void
 		{
-			_timeline.stop( );
+			timeline.stop( );
 		}
 		
 		public function gotoAndStop( frame:* ):void
@@ -69,7 +69,7 @@ package asf.core.viewcontrollers
 				frame = getFrameNumberForLabel( frame );
 			}
 			
-			_timeline.gotoAndStop( frame );
+			timeline.gotoAndStop( frame );
 		}
 		
 		public function gotoAndPlay( frame:* ):void
@@ -79,7 +79,7 @@ package asf.core.viewcontrollers
 				frame = getFrameNumberForLabel( frame );
 			}
 			
-			_timeline.gotoAndPlay( frame );
+			timeline.gotoAndPlay( frame );
 		}
 		
 		public function animateBetweenFrames( start:*, end:* ):ISequence
@@ -91,6 +91,8 @@ package asf.core.viewcontrollers
 		public function animateToFrame( frame:* ):ISequence
 		{
 			var seq:Sequence = new Sequence( );
+			stop( );
+			seq.notifyStart( );
 			
 			if( frame is String )
 			{

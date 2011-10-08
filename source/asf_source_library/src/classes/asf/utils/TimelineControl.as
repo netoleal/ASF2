@@ -96,9 +96,8 @@ package asf.utils
 		/**
 		* Stop calling a specific function or all functions at all frames
 		* 
-		* @param	frameFunction Optional
 		*/
-		public function removeAllFramesFunction( frameFunction:Function ):void {
+		public function removeAllFramesFunction( ):void {
 			this.frameFunctions = new Object( );
 		}
 		
@@ -173,8 +172,9 @@ package asf.utils
 			
 			this.looping = false;
 			this.targetFrame = 0;
-			if( mc ) this.mc.stop( );
+			this.onReach = null;
 			
+			if( mc ) this.mc.stop( );
 		}
 		
 		/**
@@ -231,6 +231,7 @@ package asf.utils
 			EnterFrameDispatcher.addEventListener( Event.ENTER_FRAME, this.enterFrame );
 			
 			if(callback != null) {
+				//this.onReach = callback;
 				this.addFrameFunction(number, callback, scope, args, true);
 			}
 		}
@@ -312,7 +313,17 @@ package asf.utils
 				
 				if( mc && this.mc.currentFrame == this.targetFrame ){
 					if( !this.isOnTargetFrame ){
-						if( this.onReach != null ) this.onReach( this.mc.currentFrame );
+						if( this.onReach != null )
+						{
+							try
+							{
+								this.onReach( this.mc.currentFrame );
+							}
+							catch( e:Error )
+							{
+								this.onReach( );
+							}
+						}
 						this.isOnTargetFrame = true;
 						this.targetFrame = 0;
 					}
