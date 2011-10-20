@@ -44,6 +44,7 @@ package asf.core.util
 		private var _queueTransition:Sequence;
 		private var _queueAction:Function;
 		private var _queueActionArgs:Array;
+		private var _queueCompleteArgs:Array;
 		
 		
 		public function Sequence( )
@@ -62,6 +63,7 @@ package asf.core.util
 				
 			_started = true;
 			_completed = false;
+			_queueCompleteArgs = null;
 			
 			this.dispatchEvent( e );
 			
@@ -79,6 +81,7 @@ package asf.core.util
 			
 			_started = false;
 			_completed = true;
+			_queueCompleteArgs = args;
 			
 			executeQueue.apply( null, args );
 			
@@ -123,6 +126,7 @@ package asf.core.util
 		{
 			_queueAction = null;
 			_queueActionArgs = null;
+			_queueCompleteArgs = null;
 		}
 		
 		/**
@@ -142,7 +146,7 @@ package asf.core.util
 			
 			if( this.completed )
 			{
-				executeQueue( );
+				executeQueue.apply( null, _queueCompleteArgs );
 			}
 			
 			return _queueTransition;

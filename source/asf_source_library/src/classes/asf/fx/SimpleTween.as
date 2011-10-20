@@ -440,6 +440,7 @@ package asf.fx
 		
 		public static function fade( target:*, amount:Number = 1, time:uint = 333, delay:uint = 0 ):ISequence
 		{
+			target.visible = true;
 			return create( ).make( target, { alpha: amount }, time, null, delay );
 		}
 		

@@ -88,6 +88,16 @@ package asf.core.viewcontrollers
 			return animateToFrame( end );
 		}
 		
+		public function animateToEnd( ):ISequence
+		{
+			return animateToFrame( timeline.totalframes );
+		}
+		
+		public function animateToBegin( ):ISequence
+		{
+			return animateToFrame( 1 );
+		}
+		
 		public function animateToFrame( frame:* ):ISequence
 		{
 			var seq:Sequence = new Sequence( );

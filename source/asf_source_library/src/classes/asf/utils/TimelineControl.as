@@ -76,13 +76,20 @@ package asf.utils
 		* @param	frameNumber
 		* @param	frameFunction Optional
 		*/
-		public function removeFrameFunction( frameNumber:uint, frameFunction:Function ):void {
+		public function removeFrameFunction( frameNumber:uint, frameFunction:Function = null ):void {
 	
-			if( this.frameFunctions[ frameNumber ] ) {
-				//trace( "[TimeLineControl] I will remove a function from frame " + frameNumber + ", ok?" );
+			if( this.frameFunctions[ frameNumber ] ) 
+			{
 				var fnReg:Object;
 				
-				for(var n:uint = 0, t:uint = this.frameFunctions[ frameNumber ].length; n < t; n++ ){
+				if( frameFunction == null )
+				{
+					this.frameFunctions[ frameNumber ] = new Array( );
+					return;
+				}
+				
+				for(var n:uint = 0, t:uint = this.frameFunctions[ frameNumber ].length; n < t; n++ )
+				{
 					fnReg = this.frameFunctions[ frameNumber ][ n ];
 					
 					if( fnReg.frameFunction == frameFunction || frameFunction == null ){
