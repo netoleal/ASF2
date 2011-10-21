@@ -30,6 +30,7 @@ package asf.debug
 	import com.flashdynamix.utils.SWFProfiler;
 	
 	import flash.display.Sprite;
+	import flash.system.Capabilities;
 	import flash.text.TextField;
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
@@ -50,7 +51,8 @@ package asf.debug
 			txt.defaultTextFormat = DebugPanel.getTextFormat( );
 			
 			txt.mouseEnabled = false;
-			txt.width = 150;
+			txt.width = 400;
+			txt.wordWrap = true;
 			txt.multiline = true;
 			
 			SWFProfiler.start( );
@@ -62,9 +64,12 @@ package asf.debug
 		private function refresh( ):void
 		{
 			var s:String = "";
+			var debugger:String = (Capabilities.isDebugger) ? ' / Debugger' : '';
+			var info:String = String("Flash Platform: " + Capabilities.version + " / " + Capabilities.playerType + debugger + " / " + Capabilities.os + " / " + Capabilities.screenResolutionX + "x" + Capabilities.screenResolutionY);
 			
 			s += "FPS: " + trunc( SWFProfiler.currentFps ) + " / " + trunc( SWFProfiler.averageFps ) + " max: " + trunc( SWFProfiler.maxFps );
 			s += "\nMEM: " + trunc( SWFProfiler.currentMem );
+			s += "\nPlayer Info: " + info;
 			
 			txt.text = s;
 		}
