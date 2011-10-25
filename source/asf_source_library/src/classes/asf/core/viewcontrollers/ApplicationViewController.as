@@ -371,7 +371,7 @@ package asf.core.viewcontrollers
 		
 		private function onDependenciesIOError( evt:IOErrorEvent ):void
 		{
-			this.log( LogLevel.ERROR_1, evt.text );
+			this.log( LogLevel.ERROR_1, this.model.id, evt.text );
 			this.dispatchEvent( evt );
 		}
 		
