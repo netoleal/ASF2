@@ -53,6 +53,11 @@ package asf.core.config
 			_overrides = new Object( );
 		}
 		
+		/**
+		 * Propriedade usada para armazenar valores padrão aos parâmetros para quando o parâmetro não existe nem no loaderInfo nem no XML de configurações e nem na URL também (SWFAddress requerido para parâmetros pela URL)
+		 * @return 
+		 * 
+		 */
 		public function get defaults( ):Object
 		{
 			return _defaults;
@@ -68,6 +73,13 @@ package asf.core.config
 			_overrides[ name ] = value;
 		}
 		
+		/**
+		 * Resgata um parâmetro que pode estar na URL, FlashVars ou no XML de configurações. Caso não esteja em nenhum desses locais, ele será procurado na propriedade "defaults"
+		 *  
+		 * @param name
+		 * @return O valor do parâmetro
+		 * 
+		 */
 		public function getParam( name:String ):*
 		{
 			var value:String;

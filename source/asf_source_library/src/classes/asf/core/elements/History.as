@@ -42,6 +42,12 @@ package asf.core.elements
 			states = new Vector.<HistoryState>( );
 		}
 		
+		/**
+		 * Volta um passo no histórico
+		 *  
+		 * @param recursive
+		 * 
+		 */
 		public function back( recursive:Boolean = false ):void
 		{
 			if( recursive )
@@ -67,6 +73,12 @@ package asf.core.elements
 			}
 		}
 		
+		/**
+		 * Avança um passo no histórico
+		 *  
+		 * @param recursive
+		 * 
+		 */
 		public function foward( recursive:Boolean = false ):void
 		{
 			if( recursive )
@@ -138,6 +150,14 @@ package asf.core.elements
 			this.dispatchEvent( new HistoryEvent( HistoryEvent.CHANGE ) );
 		}
 		
+		/**
+		 * Método interno usado pela Navigation para registrar os passos do histórico
+		 *  
+		 * @param sections
+		 * @param currentSectionId
+		 * @param extraArguments
+		 * 
+		 */
 		public function pushState( sections:Vector.<Section>, currentSectionId:String, extraArguments:Array ):void
 		{
 			states.push( new HistoryState( sections, currentSectionId, extraArguments ) );
@@ -146,6 +166,12 @@ package asf.core.elements
 			this.dispatchEvent( new HistoryEvent( HistoryEvent.NEW_STATE ) );
 		}
 		
+		/**
+		 * Índice atual de navegação do histórico
+		 *  
+		 * @return 
+		 * 
+		 */
 		public function get currentIndex( ):uint
 		{
 			return this.index;
@@ -156,16 +182,32 @@ package asf.core.elements
 			return states;
 		}
 		
+		/**
+		 * Checa se é possível voltar no histórico
+		 *  
+		 * @return 
+		 * 
+		 */
 		public function canGoBack( ):Boolean
 		{
 			return index > 0;
 		}
 		
+		/**
+		 * Checa se é possível avançar no histórico
+		 *  
+		 * @return 
+		 * 
+		 */
 		public function canGoFoward( ):Boolean
 		{
 			return index < states.length - 1;
 		}
 		
+		/**
+		 * Corta o histórico na posição atual. Também método de uso interno pela Navigation 
+		 * 
+		 */
 		public function cut( ):void
 		{
 			states.splice( index, Math.max( 0, states.length - index - 1 ) );

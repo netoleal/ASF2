@@ -76,12 +76,30 @@ package asf.fx
 			super( );
 		}
 		
+		/**
+		 * Use esse método para registrar propriedades especiais e personalizadas.
+		 * Ex.:
+		 * <pre>
+		 * 
+		 * SimpleTween.registerSpecialProperty( "brightness", new BrightnessProperty( ) );
+		 * 
+		 * </pre>
+		 * @param name Nome da propriedade a ser reconhecida
+		 * @param property Instancia de ISpecialProperty que será usada para get e set da propriedade
+		 * 
+		 */
 		public static function registerSpecialProperty( name:String, property:ISpecialProperty ):void
 		{
 			if( !specialProperties ) specialProperties = { };
 			specialProperties[ name ] = property;
 		}
 		
+		/**
+		 * Remove uma propriedade personalizada
+		 *  
+		 * @param name
+		 * 
+		 */
 		public static function unregisterSpecialProperty( name:String ):void
 		{
 			if( specialProperties && specialProperties[ name ] && specialProperties[ name ] is ISpecialProperty )
