@@ -73,11 +73,21 @@ package asf.core.elements
 			if( app is Section ) _history.pushState( currentActiveSections, "", [ ] );
 		}
 		
+		/**
+		 * Objeto de histórico de navegação 
+		 * @return 
+		 * 
+		 */
 		public function get history( ):History
 		{
 			return _history;
 		}
 		
+		/**
+		 * Última seção aberta 
+		 * @return 
+		 * 
+		 */
 		public function get lastOpenedSection( ):Section
 		{
 			if( currentActiveSections.length == 0 )
@@ -88,6 +98,11 @@ package asf.core.elements
 			return currentActiveSections[ currentActiveSections.length - 1 ];
 		}
 		
+		/**
+		 * Todas as seções existentes da aplicação atual. 
+		 * @return 
+		 * 
+		 */
 		public function get sections( ):Vector.<Section>
 		{
 			if( !_sections )
@@ -111,6 +126,11 @@ package asf.core.elements
 			return _sections;
 		}
 		
+		/**
+		 * Referência para a layer base das seções 
+		 * @return 
+		 * 
+		 */
 		public function get sectionsLayer( ):Sprite
 		{
 			if( app.model.sections.layerName != "" )
@@ -121,12 +141,23 @@ package asf.core.elements
 			return app.container;
 		}
 		
+		/**
+		 * Todas as seções atualmente ativas/abertas 
+		 * @return 
+		 * 
+		 */
 		public function get currentActiveSections( ):Vector.<Section>
 		{
 			if( !openedSections ) openedSections = new Vector.<Section>( );
 			return openedSections;
 		}
 		
+		/**
+		 * Fecha uma seção 
+		 * @param p_section
+		 * @return 
+		 * 
+		 */
 		public function closeSection( p_section:* ):Sequence
 		{
 			var section:Section = p_section is Section? p_section: getSectionByID( p_section );
@@ -161,6 +192,15 @@ package asf.core.elements
 			return null;
 		}
 		
+		/**
+		 * Fecha todas as seções atualmente abertas
+		 *  
+		 * @param p_order Array de Strings com os ids das Sections na ordem em que devem ser fechadas 
+		 * @param p_parallel Determina se as seções são fechadas em paralelo ou não. Caso false serão fechadas em sequência.
+		 * @param p_delays Vector de uint com o tempo de espera em millisegundos entre o fechamento de cada seção na ordem informada.
+		 * @return Retorna um objeto asf.core.util.Sequence. Com o retorno é possível adicionar eventos e identificar o momento em que a operação é finalizada.
+		 * 
+		 */
 		public function closeAllActiveSections( p_order:Array = null, p_parallel:Boolean = true, p_delays:Vector.<uint> = null ):Sequence
 		{
 			var sectionsToClose:Vector.<Section> = new Vector.<Section>( );
@@ -179,6 +219,16 @@ package asf.core.elements
 			return closeSections( sectionsToClose, p_order, p_parallel, p_delays );
 		}
 		
+		/**
+		 * Fecha seções em lote
+		 *  
+		 * @param p_sections Vector preenchido com os objetos Section a serem fechados
+		 * @param p_order Array de String com os IDs das seções na ordem em que devem ser fechadas
+		 * @param p_parallel Determina se as seções são fechadas em paralelo ou não. Caso false serão fechadas em sequência.
+		 * @param p_delays Vector de uint com o tempo de espera em millisegundos entre o fechamento de cada seção na ordem informada.
+		 * @return Retorna um objeto asf.core.util.Sequence. Com o retorno é possível adicionar eventos e identificar o momento em que a operação é finalizada.
+		 * 
+		 */
 		public function closeSections( p_sections:Vector.<Section>, p_order:Array = null, p_parallel:Boolean = true, p_delays:Vector.<uint> = null ):Sequence
 		{
 			var sectionsToClose:Vector.<Section> = new Vector.<Section>( );
@@ -234,23 +284,65 @@ package asf.core.elements
 			}
 		}
 		
+		/**
+		 * Vector de Strings com os IDs de todas as seções 
+		 * @return 
+		 * 
+		 */
 		public function get sectionsIDs( ):Vector.<String>
 		{
 			return new Vector.<String>( ).concat( arIds );
 		}
 		
+		/**
+		 * Retorna uma Section com base em seu ID 
+		 * @param p_id ID da seção desejada
+		 * @return Section
+		 * 
+		 */
 		public function getSectionByID( p_id:String ):Section
 		{
 			if( !ids ) return null;
 			return ids[ p_id ];
 		}
 		
+		/**
+		 * Seção atual 
+		 * @return 
+		 * 
+		 */
 		public function getCurrentSection( ):Section
 		{
 			return _currentSection;
 		}
 		
-		//TODO: tratar melhor os params
+		/**
+		 * Executa a sequencia de abertura de uma Section
+		 * 
+		 * @param params Você pode informar quatro tipos de valores nesse parâmetro:
+		 *	<br>
+		 *	<ul>
+		 *	<li>String id String contendo o ID da seção a ser aberta</li>
+		 *	<li>Section section Objeto Section da seção a ser aberta</li>
+		 *	<li>params:Object ou params:NavigateParams Objeto contendo as seguintes propriedades:
+		 *		<ul>
+		 *			<li>sectionID:String = "" ID da seção a ser aberta</li>
+		 *			<li>section:Section = null Objeto Section da seção a ser aberta</li>
+		 *			<li>setAsCurrent:Boolean = true Caso o parâmetro "closeCurrentBeforeOpen" seja "false" e este seja "true", o framework carregará a próxima seção e só em seguida irá fechar a(s) anterior(es) para então abrir a próxima. Caso os dois sejam "false", nenhuma seção será fechada pela navegação.</li>
+		 *			<li>closeCurrentBeforeOpen:Boolean = true Fecha ou não as seções atuais antes de carregar e abrir a próxima seção</li>
+		 *			<li>preserveHistory:Boolean = false Caso true, não afeta o histórico da navegação</li>
+		 *			<li>sectionsToCloseAfter:Vector.&lt;Section&gt; Vector contendo as seções que devem ser fechadas após a seção ser aberta</li>
+		 *			<li>extraArguments:Array O mesmo que o parâmetro extraArguments do método openSection</li>
+		 *			<li>withSubSection ID ou Section da subseção a ser aberta dentro da seção.</li>
+		 *			<li>container Uma Sprite para ser usada como container. Esse parâmetro sobrescreve a layer da seção configurada no XML. Essa substituição é temporária, ela dura enquanto a seção estiver ativa.</li>
+		 *		</ul>
+		 *	</li>
+		 *	<li>extraArguments Parâmetros adicionais que serão passadas para o método init da ISectionView</li>
+		 *	</ul>
+		 * @param extraArguments Parâmetros adicionais que serão passadas para o método init da ISectionView
+		 * @return retorna o objeto Section da seção aberta.. Isso pode ser usado para fazer o preloading da seção através de eventos
+		 * 
+		 */
 		public function openSection( params:*, ... extraArguments ):Section
 		{
 			app.log( LogLevel.INFO_3, params );
@@ -366,11 +458,21 @@ package asf.core.elements
 			section.mainApplication.container.stage.mouseChildren = true;
 		}
 		
+		/**
+		 * Verifica se há seções abertas na navegação 
+		 * @return true ou false
+		 * 
+		 */
 		public function hasOpenedSections( ):Boolean
 		{
 			return currentActiveSections.length > 0;
 		}
 		
+		/**
+		 * Verifica se há seções abertas que serão fechadas no próximo "openSection".
+		 * @return true ou false 
+		 * 
+		 */
 		public function hasSectionsToCloseOnNavigate( ):Boolean
 		{
 			if( hasOpenedSections( ) )
@@ -501,6 +603,10 @@ package asf.core.elements
 			sectionsToClose = null;
 		}
 		
+		/**
+		 * Limpeza de memória 
+		 * 
+		 */
 		public function dispose( ):void
 		{
 			var section:Section;
@@ -515,6 +621,10 @@ package asf.core.elements
 			_sections = null;
 		}
 		
+		/**
+		 * Reinicia a navegação. Esse método não fecha as seções atualmente abertas. 
+		 * 
+		 */
 		public function reset( ):void
 		{
 			openedSections = new Vector.<Section>( );
