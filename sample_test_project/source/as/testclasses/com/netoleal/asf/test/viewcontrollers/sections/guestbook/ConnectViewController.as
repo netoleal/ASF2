@@ -52,12 +52,12 @@ package com.netoleal.asf.test.viewcontrollers.sections.guestbook
 			alpha = 0;
 			visible = false;
 			
-			addEventListener( MouseEvent.CLICK, onClick );
 		}
 		
-		private function onClick(event:MouseEvent):void
+		protected override function onClick(event:MouseEvent):void
 		{
 			ASFFacebook.getInstance( ).loginUser( ).queue( onUserLoginComplete );
+			super.onClick( event );
 		}
 		
 		private function onUserLoginComplete():void
