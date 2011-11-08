@@ -49,7 +49,20 @@ package asf.debug
 			addChild( bt );
 			addChild( body.view );
 			
+			bt.addEventListener( MouseEvent.MOUSE_DOWN, buttonDown );
 			bt.addEventListener( MouseEvent.CLICK, buttonClick );
+		}
+		
+		private function buttonDown( evt:MouseEvent ):void
+		{
+			bt.stage.addEventListener( MouseEvent.MOUSE_UP, buttonUp );
+			this.startDrag( );
+		}
+		
+		private function buttonUp( evt:MouseEvent ):void
+		{
+			bt.stage.removeEventListener( MouseEvent.MOUSE_UP, buttonUp );
+			this.stopDrag( );
 		}
 		
 		public function getPanel( type:Class ):*
