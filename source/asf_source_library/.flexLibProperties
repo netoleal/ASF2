@@ -35,6 +35,8 @@
     <classEntry path="asf.fx.stween"/>
     <classEntry path="asf.fx.stweens"/>
     <classEntry path="asf.fx.FrameProperty"/>
+    <classEntry path="asf.debug.ConsolePanel"/>
+    <classEntry path="asf.debug.ScrollBar"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

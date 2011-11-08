@@ -81,6 +81,17 @@ package asf.core.elements
 		}
 		
 		/**
+		 * Retorna qualquer seção com o id informado 
+		 * @param id Identificador da seção a ser retornada
+		 * @return 
+		 * 
+		 */
+		public static function getByID( id:String ):Section
+		{
+			return ApplicationViewController.getByID( id ) as Section;
+		}
+		
+		/**
 		 * Fecha a seção dentro da navegação da applicação/seção pai
 		 *  
 		 * @return Objeto Sequence 

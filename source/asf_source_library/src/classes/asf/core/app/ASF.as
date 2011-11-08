@@ -74,7 +74,7 @@ package asf.core.app
 	public class ASF extends ApplicationViewController
 	{
 		private var _mainController:IMainController;
-		private var debugPanel:DebugPanel;
+		private var _debugPanel:DebugPanel;
 		
 		/**
 		 * Construtor do Framework. Esta classe representa a Applicação principal do projeto.
@@ -139,7 +139,7 @@ package asf.core.app
 		{
 			if( this.params.debug == "true" )
 			{
-				debugPanel = new DebugPanel( this );
+				_debugPanel = new DebugPanel( this );
 				
 				if( container.stage )
 				{
@@ -152,10 +152,15 @@ package asf.core.app
 			}
 		}
 		
+		public function get debugPanel( ):DebugPanel
+		{
+			return _debugPanel;
+		}
+		
 		private function addDebugPanel( evt:Event = null ):void
 		{
 			container.removeEventListener( Event.ADDED_TO_STAGE, addDebugPanel );
-			container.stage.addChild( debugPanel );
+			container.stage.addChild( _debugPanel );
 		}
 		
 		/**
@@ -176,6 +181,19 @@ package asf.core.app
 		public static function getByID( id:String ):ASF
 		{
 			return ApplicationViewController.getByID( id ) as ASF;
+		}
+		
+		public static function getActiveInstances( ):Vector.<ASF>
+		{
+			var k:String;
+			var res:Vector.<ASF> = new Vector.<ASF>( );
+			
+			for( k in instances )
+			{
+				if( instances[ k ] is ASF ) res.push( instances[ k ] );
+			}
+			
+			return res;
 		}
 		
 		private function mountContextMenu( ):void

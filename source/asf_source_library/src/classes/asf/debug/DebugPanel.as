@@ -52,6 +52,11 @@ package asf.debug
 			bt.addEventListener( MouseEvent.CLICK, buttonClick );
 		}
 		
+		public function getPanel( type:Class ):*
+		{
+			return ( body.view as DebugPanelBody ).getPanel( type );
+		}
+		
 		private function buttonClick( evt:MouseEvent ):void
 		{
 			body.setVisible( !body.visible );

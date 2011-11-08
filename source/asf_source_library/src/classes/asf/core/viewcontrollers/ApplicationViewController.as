@@ -76,8 +76,8 @@ package asf.core.viewcontrollers
 	 */
 	public class ApplicationViewController extends AbstractViewController
 	{
-		private static var instances:Object;
 		private static var count:uint = 0;
+		protected static var instances:Object;
 		
 		protected var _model:ApplicationModel;
 		protected var isModelLoaded:Boolean = false;
@@ -282,6 +282,19 @@ package asf.core.viewcontrollers
 		public static function getByID( id:String ):ApplicationViewController
 		{
 			return instances[ id ];
+		}
+		
+		public static function getActiveInstances( ):Vector.<ApplicationViewController>
+		{
+			var k:String;
+			var res:Vector.<ApplicationViewController> = new Vector.<ApplicationViewController>( );
+			
+			for( k in instances )
+			{
+				res.push( instances[ k ] );
+			}
+			
+			return res;
 		}
 		
 		/**

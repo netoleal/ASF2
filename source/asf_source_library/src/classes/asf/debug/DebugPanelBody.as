@@ -54,6 +54,7 @@ package asf.debug
 			
 			panels = [ 
 				  new PerformancePanel( p_app )
+				, new ConsolePanel( p_app )
 				, new NavigationPanel( p_app ) 
 				, new MouseInspectorPanel( p_app )
 			];
@@ -97,6 +98,21 @@ package asf.debug
 			addChild( title );
 			
 			showPanel( panels[ 0 ] );
+		}
+		
+		public function getPanel( type:Class ):*
+		{
+			var panel:*;
+			
+			for each( panel in panels )
+			{
+				if( panel is type )
+				{
+					return panel;
+				}
+			}
+			
+			return null;
 		}
 		
 		private function buttonClick( evt:MouseEvent ):void
