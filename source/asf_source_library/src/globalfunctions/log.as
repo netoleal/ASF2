@@ -34,7 +34,7 @@ package
 		var msg:String = Logger._trace( "", -1, args );
 		var app:ASF = ASF.getActiveInstances( )[ 0 ];
 		
-		if( app && app.params.debug == "true" )
+		if( app && app.params.debug == "true" && app.debugPanel )
 		{
 			( app.debugPanel.getPanel( ConsolePanel ) as ConsolePanel ).addLog( msg );
 		}
