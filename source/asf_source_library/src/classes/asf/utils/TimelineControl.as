@@ -1,5 +1,8 @@
 package asf.utils
 {
+	import asf.core.util.Sequence;
+	import asf.interfaces.ISequence;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	
@@ -28,6 +31,7 @@ package asf.utils
 		private var frameFunctions:Object;
 		
 		private var speed:Number;
+		private var animateToFrameSeq:Sequence;
 		
 		/**
 		* Contructor
@@ -35,14 +39,13 @@ package asf.utils
 		* @param	mcToControl - MovieClip instance to control
 		* @param	speed - A speed factor to use in animations
 		*/
-		public function TimelineControl( mcToControl:MovieClip, speed:Number = 1 ) {
-						
-			
+		public function TimelineControl( mcToControl:MovieClip, speed:Number = 1 ):void 
+		{
 			this.mc = mcToControl;
 			EnterFrameDispatcher.addEventListener( Event.ENTER_FRAME, this.enterFrame );
 			
 			this.speed = speed;
-			
+			this.animateToFrameSeq = new Sequence( );
 			this.frameFunctions = new Object( );
 		}
 		
@@ -225,7 +228,7 @@ package asf.utils
 		* 
 		* @param	number
 		*/
-		public function animateToFrame( number:uint , callback:Function = null, scope:Object = null, args:Array = null ):void 
+		public function animateToFrame( number:uint , callback:Function = null, scope:Object = null, args:Array = null ):ISequence 
 		{
 			this.isOnFirstFrame = false;
 			this.isOnLastFrame = false;
@@ -234,6 +237,7 @@ package asf.utils
 			this.looping = false;
 			this.mc.stop( );
 			this.targetFrame = number;
+			this.animateToFrameSeq.notifyStart( );
 			
 			EnterFrameDispatcher.addEventListener( Event.ENTER_FRAME, this.enterFrame );
 			
@@ -241,6 +245,8 @@ package asf.utils
 				//this.onReach = callback;
 				this.addFrameFunction(number, callback, scope, args, true);
 			}
+			
+			return animateToFrameSeq;
 		}
 		
 		/**
@@ -333,6 +339,7 @@ package asf.utils
 						}
 						this.isOnTargetFrame = true;
 						this.targetFrame = 0;
+						this.animateToFrameSeq.notifyComplete( );
 					}
 					if( this.looping ){
 						

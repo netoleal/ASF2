@@ -109,7 +109,7 @@ package asf.core.viewcontrollers
 				frame = getFrameNumberForLabel( frame );
 			}
 			
-			timeline.animateToFrame( frame, seq.notifyComplete );
+			timeline.animateToFrame( frame ).queue( seq.notifyComplete );
 			
 			return seq;
 		}
