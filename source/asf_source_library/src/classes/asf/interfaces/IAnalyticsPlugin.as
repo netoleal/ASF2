@@ -28,5 +28,6 @@ package asf.interfaces
 	public interface IAnalyticsPlugin extends IDisposable
 	{
 		function track( uri:String ):void;
+		function trackEvent( uri:String ):void;
 	}
 }

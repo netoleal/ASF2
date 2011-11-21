@@ -138,6 +138,11 @@ package asf.core.models.app
 			return _dependencies;
 		}
 		
+		public function get extras( ):XML
+		{
+			return XML( this.xml.extras );
+		}
+		
 		public function getParsedValue( input:String ):String
 		{
 			return VariablesParser.parse( input, this );

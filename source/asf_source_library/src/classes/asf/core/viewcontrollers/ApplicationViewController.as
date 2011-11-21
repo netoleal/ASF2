@@ -450,7 +450,7 @@ package asf.core.viewcontrollers
 		 * <br>
 		 * ou<br>
 		 * <br>
-		 * app.trackAnalytics( "navigate", nextSection.id<br>
+		 * app.trackAnalytics( "navigate", nextSection.id );<br>
 		 *  <br>
 		 * @param metricNode O Nó XML ou ID do nó com a métrica a ser executada
 		 * @param replaces Valores para servirem de variáveis e substituírem os %s dentro da métrica
@@ -459,9 +459,32 @@ package asf.core.viewcontrollers
 		 */
 		public function trackAnalytics( metricNode:*, ... replaces ):String
 		{
+			return track.apply( null, [ metricNode, analyticsPlugin.track ].concat( replaces ) );
+		}
+		
+		/**
+		 * Executa o trackAnalyticsEvent no Plugin de métricas.
+		 * Exemplo:<br>
+		 * <br>
+		 * app.trackAnalyticsEvent( app.metrics.asf.sample.home.navigate, nextSection.id );<br>
+		 * <br>
+		 * ou<br>
+		 * <br>
+		 * app.trackAnalyticsEvent( "navigate", nextSection.id );<br>
+		 *  <br>
+		 * @param metricNode O Nó XML ou ID do nó com a métrica a ser executada
+		 * @param replaces Valores para servirem de variáveis e substituírem os %s dentro da métrica
+		 * @return A URI da métrica aplicada ou vazi no caso de métrica inválida
+		 * 
+		 */
+		public function trackAnalyticsEvent( metricNode:*, ... replaces ):String
+		{
+			return track.apply( null, [ metricNode, analyticsPlugin.trackEvent ].concat( replaces ) );
+		}
+		
+		private function track( metricNode:*, method:Function, ... replaces ):String
+		{
 			if( metricNode == null ) return "";
-			
-			//trace( log( LogLevel.MUTE_0, analyticsPlugin, metricNode, replaces ) );
 			
 			if( analyticsPlugin )
 			{
@@ -473,9 +496,9 @@ package asf.core.viewcontrollers
 					case metricNode is XMLList:
 					{
 						var n:uint = 0;
-						uri = XMLUtils.getNodePath( metricNode );
+						uri = String( metricNode.text( ) ) != ""? String( metricNode.text( ) ): XMLUtils.getNodePath( metricNode );
 						
-						if( String( metricNode.@uri ) != "" )
+						if( String( metricNode.@uri ) != "" && String( metricNode.text( ) ) == "" )
 						{
 							uri = metricNode.@uri;
 						}
@@ -485,12 +508,12 @@ package asf.core.viewcontrollers
 					case metricNode is String:
 					{
 						metricNode = XMLUtils.findNode( metricNode, this.metrics );
-						return trackAnalytics.apply( null, [ metricNode ].concat( replaces ) );  
+						return track.apply( null, [ metricNode, method ].concat( replaces ) );  
 					}
 				}
 				
 				while( uri.indexOf( "%s" ) != -1 && n < replaces.length ) uri = uri.replace( "%s", replaces[ n++ ] );
-				analyticsPlugin.track( uri );
+				method( uri );
 				
 				return uri;
 			}

@@ -43,6 +43,11 @@ package asf.plugins.analytics
 			}
 		}
 		
+		public function trackEvent( uri:String ):void
+		{
+			track( uri );
+		}
+		
 		public function dispose():void
 		{
 			//Not needed here
