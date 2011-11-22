@@ -30,8 +30,10 @@ package com.netoleal.asf.test.viewcontrollers.sections
 	import asf.core.viewcontrollers.InOutViewController;
 	import asf.events.ApplicationEvent;
 	import asf.events.DependenciesProgressEvent;
+	import asf.events.FlowEvent;
 	import asf.events.NavigationEvent;
 	import asf.events.SectionEvent;
+	import asf.flow.LoadShowFlow;
 	import asf.interfaces.ISequence;
 	import asf.interfaces.ITransitionable;
 	
@@ -47,6 +49,7 @@ package com.netoleal.asf.test.viewcontrollers.sections
 		private var section:Section;
 		private var menu:MenuViewController;
 		private var loading:LoadingViewController;
+		private var flow:LoadShowFlow;
 		
 		public function BaseSectionViewController(p_target:MovieClip, p_section:Section)
 		{
@@ -62,10 +65,27 @@ package com.netoleal.asf.test.viewcontrollers.sections
 			
 			section.layers.loading.addChild( loading.view );
 			
+			flow = new LoadShowFlow( section.navigation, true );
+			
+			flow.addEventListener( FlowEvent.SHOW_LOADING, onFlowShowLoading );
+			flow.addEventListener( FlowEvent.HIDE_LOADING, onFlowHideLoading );
+			flow.addEventListener( DependenciesProgressEvent.LOAD_PROGRESS, onSectionLoadProgress );
+			
 			section.navigation.addEventListener( NavigationEvent.CHANGE, onSectionNavigate );
 			
 			section.layers.feed.x = parseInt( section.styles.getStyle( "FacebookFeedSectionView" ).x );
 			menu.addEventListener( Event.RESIZE, arrange );
+		}
+		
+		private function onFlowHideLoading(event:FlowEvent):void
+		{
+			section.sounds.play( "transition" );
+			loading.close( ).queue( flow.resumeCurrentLoading );
+		}
+		
+		private function onFlowShowLoading(event:FlowEvent):void
+		{
+			showLoading( ).queue( flow.resumeCurrentLoading );
 		}
 		
 		private function arrange( evt:Event = null ):void
@@ -75,50 +95,12 @@ package com.netoleal.asf.test.viewcontrollers.sections
 		
 		private function onSectionNavigate(event:NavigationEvent):void
 		{
-			var nextSection:Section = event.section;
-			
-			section.mainApplication.trackAnalytics( "navigate", nextSection.id );
-			
-			nextSection.addEventListener( ApplicationEvent.WILL_LOAD_DEPENDENCIES, onSectionWillLoad );
-		}
-		
-		private function onSectionWillLoad(event:ApplicationEvent):void
-		{
-			var nextSection:Section = event.target as Section;
-			
-			nextSection.removeEventListener( ApplicationEvent.WILL_LOAD_DEPENDENCIES, onSectionWillLoad );
-			nextSection.pauseLoading( );
-			
-			nextSection.addEventListener( DependenciesProgressEvent.LOAD_COMPLETE, onSectionLoadComplete );
-			nextSection.addEventListener( DependenciesProgressEvent.LOAD_PROGRESS, onSectionLoadProgress );
-			nextSection.addEventListener( ApplicationEvent.WILL_DISPATCH_LOAD_COMPLETE, onSectionWillDispatchComplete );
-			
-			showLoading( ).queue( nextSection.resumeLoading );
-		}
-		
-		private function onSectionWillDispatchComplete(event:ApplicationEvent):void
-		{
-			var nextSection:Section = event.target as Section;
-			
-			nextSection.removeEventListener( ApplicationEvent.WILL_DISPATCH_LOAD_COMPLETE, onSectionWillDispatchComplete );
-			
-			nextSection.pauseLoading( );
-			
-			section.sounds.play( "transition" );
-			loading.close( ).queue( nextSection.resumeLoading );
+			section.mainApplication.trackAnalytics( "navigate", event.section.id );
 		}
 		
 		private function onSectionLoadProgress(event:DependenciesProgressEvent):void
 		{
 			loading.setProgress( event.bytesLoaded / event.bytesTotal );
-		}
-		
-		private function onSectionLoadComplete( evt:DependenciesProgressEvent = null ):void
-		{
-			var nextSection:Section = evt.target as Section;
-			
-			nextSection.removeEventListener( DependenciesProgressEvent.LOAD_COMPLETE, onSectionLoadComplete );
-			nextSection.removeEventListener( DependenciesProgressEvent.LOAD_PROGRESS, onSectionLoadProgress );
 		}
 		
 		private function showLoading( ):ISequence

@@ -37,6 +37,9 @@
     <classEntry path="asf.fx.FrameProperty"/>
     <classEntry path="asf.debug.ConsolePanel"/>
     <classEntry path="asf.debug.ScrollBar"/>
+    <classEntry path="asf.flow.LoadShowFlow"/>
+    <classEntry path="asf.flow.AbstractFlow"/>
+    <classEntry path="asf.events.FlowEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

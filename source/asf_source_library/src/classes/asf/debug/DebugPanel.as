@@ -27,8 +27,11 @@ package asf.debug
 {
 	import asf.core.app.ASF;
 	import asf.core.viewcontrollers.ShowHideViewController;
+	import asf.events.ApplicationEvent;
+	import asf.events.DependenciesProgressEvent;
 	
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextFormat;
 	
@@ -36,10 +39,13 @@ package asf.debug
 	{
 		private var bt:DebugButton;
 		private var body:ShowHideViewController;
+		private var app:ASF;
 		
 		public function DebugPanel( p_app:ASF )
 		{
 			super( );
+			
+			app = p_app;
 			
 			bt = new DebugButton( );
 			body = new ShowHideViewController( new DebugPanelBody( p_app ), false );
@@ -51,6 +57,38 @@ package asf.debug
 			
 			bt.addEventListener( MouseEvent.MOUSE_DOWN, buttonDown );
 			bt.addEventListener( MouseEvent.CLICK, buttonClick );
+			
+			if( !app.isLoaded )
+			{
+				app.addEventListener( ApplicationEvent.WILL_DISPATCH_LOAD_COMPLETE, onAppLoadComplete );
+			}
+			else
+			{
+				onAppLoadComplete( null );
+			}
+		}
+		
+		private function onAppLoadComplete( event:Event ):void
+		{
+			var style:Object = app.styles.getStyleFor( this );
+			var p:String;
+			
+			app.removeEventListener( ApplicationEvent.WILL_DISPATCH_LOAD_COMPLETE, onAppLoadComplete );
+			
+			if( style )
+			{
+				for( p in style )
+				{
+					if( this.hasOwnProperty( p ) )
+					{
+						try
+						{
+							this[ p ] = parseFloat( style[ p ] );
+						}
+						catch( e:Error ){ }
+					}
+				}
+			}
 		}
 		
 		private function buttonDown( evt:MouseEvent ):void
