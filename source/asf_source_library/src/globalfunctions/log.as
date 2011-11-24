@@ -32,7 +32,16 @@ package
 	public function log( ... args ):void
 	{
 		var msg:String = Logger._trace( "", -1, args );
-		var app:ASF = ASF.getActiveInstances( )[ 0 ];
+		var app:ASF;
+		
+		try
+		{
+			app = ASF.getActiveInstances( )[ 0 ];
+		}
+		catch( e:Error )
+		{
+			app = null;
+		}
 		
 		if( app && app.params.debug == "true" && app.debugPanel )
 		{
