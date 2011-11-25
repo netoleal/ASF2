@@ -50,7 +50,7 @@ package
 		
 		try
 		{
-			if( app && app.params.console != "false" )
+			if( app && app.params.console == "true" )
 			{
 				ExternalInterface.call( "console.log", msg );
 			}
