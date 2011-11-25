@@ -50,7 +50,10 @@ package
 		
 		try
 		{
-			ExternalInterface.call( "console.log", msg );
+			if( app && app.params.console != "false" )
+			{
+				ExternalInterface.call( "console.log", msg );
+			}
 		}
 		catch( e:Error )
 		{}
