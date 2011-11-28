@@ -61,11 +61,11 @@ package asf.plugins.loadermax
 		protected var queueSize:uint = 0;
 		protected var loadedItems:uint = 0;
 		
-		public function LoaderMaxPlugin( )
+		public function LoaderMaxPlugin( auditSize:Boolean = true )
 		{
 			super( null );
 			
-			queue = new LoaderMax( { auditSize: true } );
+			queue = new LoaderMax( { auditSize: auditSize } );
 			
 			queue.addEventListener( LoaderEvent.COMPLETE, onQueueComplete );
 			queue.addEventListener( LoaderEvent.PROGRESS, onQueueProgress );

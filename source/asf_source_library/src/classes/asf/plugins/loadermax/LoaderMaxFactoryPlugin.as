@@ -30,13 +30,16 @@ package asf.plugins.loadermax
 	
 	public class LoaderMaxFactoryPlugin implements ILoaderFactoryPlugin
 	{
-		public function LoaderMaxFactoryPlugin( )
+		private var auditSize:Boolean = false;
+		
+		public function LoaderMaxFactoryPlugin( auditSize:Boolean = false )
 		{
+			this.auditSize = auditSize;
 		}
 		
 		public function create( ):ILoaderPlugin
 		{
-			return new LoaderMaxPlugin( );
+			return new LoaderMaxPlugin( auditSize );
 		}
 	}
 }
