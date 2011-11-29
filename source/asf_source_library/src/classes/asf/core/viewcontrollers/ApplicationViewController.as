@@ -667,7 +667,7 @@ package asf.core.viewcontrollers
 		
 		private function dispatchLoadComplete( ):void
 		{
-			log( LogLevel.INFO_3 );
+			log( LogLevel.INFO_3, this.model.id );
 			this.dispatchEvent( new DependenciesProgressEvent( DependenciesProgressEvent.LOAD_COMPLETE, false, false, dependencies.getBytesLoaded( ), dependencies.getBytesTotal( ) ) );
 		}
 		

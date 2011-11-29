@@ -111,6 +111,8 @@ package asf.core.app
 				_mainController = new ( this.model as ASFModel ).mainControllerClass( );
 				_mainController.init( this );
 			}
+			
+			this.removeEventListener( DependenciesProgressEvent.LOAD_COMPLETE, onDependenciesLoaded );
 		}
 		
 		/**
