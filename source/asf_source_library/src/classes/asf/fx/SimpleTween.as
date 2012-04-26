@@ -59,6 +59,7 @@ package asf.fx
 		
 		private var props:Array;
 		private var propsStartValues:Dictionary;
+
 		private var ease:Function;
 		
 		private var startTime:uint;
@@ -70,10 +71,24 @@ package asf.fx
 		private var _progress:Number = 0;
 		private var _value:Number = 0;
 		private var _running:Boolean = false;
+		private var _timeScale:Number = 1;
+		
+		public static var timeScale:Number = 1;
 		
 		public function SimpleTween( )
 		{
 			super( );
+		}
+		
+		public function get timeScale():Number
+		{
+			if( SimpleTween.timeScale != 1 ) return SimpleTween.timeScale;
+			return _timeScale;
+		}
+		
+		public function set timeScale(value:Number):void
+		{
+			_timeScale = value;
 		}
 		
 		/**
@@ -263,6 +278,8 @@ package asf.fx
 		private function step( evt:Event = null ):void
 		{
 			var elapsed:Number = getTimer( ) - startTime;
+			
+			elapsed *= this.timeScale;
 			
 			updateToProgress( Math.max( 0, Math.min( 1, elapsed / time ) ) );
 		}
